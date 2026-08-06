@@ -1,0 +1,58 @@
+/* ============================================
+   L'Roma — Font Declarations
+   Self-hosted via @fontsource for GDPR compliance
+   ============================================ */
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("@fontsource/playfair-display/files/playfair-display-latin-900-normal.woff2")
+    format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-500-normal.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

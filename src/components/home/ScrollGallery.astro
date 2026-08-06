@@ -1,0 +1,57 @@
+---
+// ScrollGallery — Cinematic scroll choreography between hero and featured cards
+// Uses 21st.dev ScrollChoreography component with food photography
+// Section heading: "Nuestra Cocina" in Playfair Display, gold accent
+import ScrollChoreography from "@/components/ui/scroll-choreography";
+
+const foodImages = {
+  topLeft:
+    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&fm=webp&fit=crop&q=80",
+  topRight:
+    "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&fm=webp&fit=crop&q=80",
+  bottomLeft:
+    "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&fm=webp&fit=crop&q=80",
+  bottomRight:
+    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&fm=webp&fit=crop&q=80",
+};
+---
+
+<section class="relative bg-lroma-black" aria-labelledby="kitchen-heading">
+  <!-- ============================================
+       Section heading — editorial
+       ============================================ -->
+  <div class="relative z-10 px-6 pt-28 pb-12 md:pt-36 md:pb-16">
+    <div class="mx-auto max-w-5xl">
+      <!-- Gold eyebrow -->
+      <span
+        class="inline-block text-xs font-semibold tracking-[0.25em] text-lroma-gold uppercase"
+      >
+        Nuestra Cocina
+      </span>
+
+      <h2
+        id="kitchen-heading"
+        class="mt-4 font-heading text-[clamp(2rem,5vw,3.5rem)] leading-tight text-white md:max-w-xl"
+      >
+        Cada plato cuenta una historia
+      </h2>
+
+      <p class="mt-4 max-w-md text-base leading-relaxed text-white/50">
+        Ingredientes frescos, fuego real y el arte de la cocina italiana en cada
+        preparación.
+      </p>
+
+      <!-- Thin gold line -->
+      <div
+        class="mt-6 h-px w-16 bg-gradient-to-r from-lroma-gold/50 to-transparent"
+        aria-hidden="true"
+      ></div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ScrollChoreography — 300vh cinematic scroll
+       Images converge diagonally → expand to full screen
+       ============================================ -->
+  <ScrollChoreography images={foodImages} client:load />
+</section>

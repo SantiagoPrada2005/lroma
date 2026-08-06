@@ -1,0 +1,21 @@
+---
+// Home page — L'Roma Pizza & Grill
+// Editorial flow: CinematicHero → ScrollGallery → GlassFeatureCards → StatsCounter → ReservationCTA
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CinematicHero from "@/components/home/CinematicHero.astro";
+import ScrollGallery from "@/components/home/ScrollGallery.astro";
+import GlassFeatureCards from "@/components/home/GlassFeatureCards.astro";
+import StatsCounter from "@/components/home/StatsCounter";
+import ReservationCTA from "@/components/home/ReservationCTA.astro";
+---
+
+<BaseLayout
+  title="Inicio"
+  description="L'Roma Pizza & Grill — Pizza artesanal, parrilla y cocina de autor. Más que una pizza, una experiencia."
+>
+  <CinematicHero />
+  <ScrollGallery />
+  <GlassFeatureCards />
+  <StatsCounter client:visible />
+  <ReservationCTA />
+</BaseLayout>

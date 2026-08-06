@@ -1,0 +1,135 @@
+---
+// Footer — Logo, quick links, hours placeholder, social icons, glass divider
+---
+<footer
+  class="border-t border-white/10 px-6 py-16"
+  role="contentinfo"
+>
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-12 md:grid-cols-3">
+      <!-- Logo + tagline -->
+      <div class="flex flex-col gap-3">
+        <a href="/" class="text-2xl font-bold tracking-tight text-white">
+          L'ROMA
+        </a>
+        <p class="text-sm leading-relaxed text-white/50">
+          Pizza & Grill
+        </p>
+        <p class="text-xs text-white/30">
+          Hecho con pasión en L'Roma
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/60">
+          Navegación
+        </h4>
+        <nav class="flex flex-col gap-2" aria-label="Enlaces del footer">
+          <a
+            href="/menu"
+            class="text-sm text-white/50 transition-colors hover:text-white"
+          >
+            Menú
+          </a>
+          <a
+            href="/gallery"
+            class="text-sm text-white/50 transition-colors hover:text-white"
+          >
+            Galería
+          </a>
+          <a
+            href="/about"
+            class="text-sm text-white/50 transition-colors hover:text-white"
+          >
+            Nosotros
+          </a>
+          <a
+            href="/contact"
+            class="text-sm text-white/50 transition-colors hover:text-white"
+          >
+            Contacto
+          </a>
+        </nav>
+      </div>
+
+      <!-- Hours placeholder + Social -->
+      <div>
+        <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/60">
+          Horarios
+        </h4>
+        <div class="space-y-2 text-sm text-white/50">
+          <p class="flex justify-between">
+            <span>Lunes – Jueves</span>
+            <span>19:00 – 00:00</span>
+          </p>
+          <p class="flex justify-between">
+            <span>Viernes – Sábado</span>
+            <span>19:00 – 01:30</span>
+          </p>
+          <p class="flex justify-between">
+            <span>Domingo</span>
+            <span>19:00 – 00:00</span>
+          </p>
+        </div>
+
+        <!-- Social icons -->
+        <div class="mt-6 flex gap-4">
+          <a
+            href="https://instagram.com/lromapizza"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/40 transition-colors hover:text-white"
+            aria-label="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+          </a>
+          <a
+            href="https://facebook.com/lromapizza"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/40 transition-colors hover:text-white"
+            aria-label="Facebook"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* Glass divider */}
+    <div class="mt-12 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+    <p class="mt-8 text-center text-xs text-white/20">
+      &copy; {new Date().getFullYear()} L'Roma Pizza & Grill. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,114 @@
+---
+// ReservationCTA — Cinematic closing section
+// Full-width dramatic food photo, heavy dark overlay, parallax on scroll
+// Centered text: "Una experiencia te espera" in Playfair Display
+import { MessageCircle } from "lucide-react";
+
+const whatsappUrl =
+  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20reservar%20una%20mesa";
+---
+
+<section
+  class="relative flex min-h-[80dvh] items-center justify-center overflow-hidden md:min-h-[90dvh]"
+  aria-labelledby="reservation-heading"
+>
+  <!-- ============================================
+       Layer 1: Dramatic food photography — full bleed
+       ============================================ -->
+  <div class="absolute inset-0">
+    <img
+      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&fm=webp&fit=crop&q=85"
+      alt="Interior de restaurante con iluminación cálida y ambiente sofisticado"
+      class="h-full w-full object-cover"
+      loading="lazy"
+      decoding="async"
+      id="cta-bg-image"
+    />
+    <!-- === Parallax script — subtle background movement === -->
+    <script>
+      (() => {
+        const img = document.getElementById("cta-bg-image");
+        if (!img) return;
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReducedMotion) return;
+
+        let ticking = false;
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const section = img.closest("section");
+              if (!section) { ticking = false; return; }
+              const rect = section.getBoundingClientRect();
+              const scrolled = -rect.top;
+              const maxScroll = rect.height;
+              const pct = Math.max(0, Math.min(1, scrolled / maxScroll));
+              img.style.transform = `translateY(${pct * 40}px) scale(1.05)`;
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      })();
+    </script>
+  </div>
+
+  <!-- ============================================
+       Layer 2: Heavy dark overlay (75%)
+       ============================================ -->
+  <div
+    class="absolute inset-0 bg-black/75"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Red accent glow — bottom center -->
+  <div
+    class="pointer-events-none absolute bottom-0 left-1/2 h-[400px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-lroma-red/10 blur-[120px]"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ============================================
+       Layer 3: Content — centered, cinematic
+       ============================================ -->
+  <div class="relative z-10 mx-auto max-w-2xl px-6 text-center">
+    <!-- Gold eyebrow -->
+    <span
+      class="inline-block text-xs font-semibold tracking-[0.3em] text-lroma-gold uppercase"
+    >
+      Reservá
+    </span>
+
+    <!-- Heading -->
+    <h2
+      id="reservation-heading"
+      class="mt-5 font-heading text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] text-white"
+    >
+      Una experiencia<br class="md:hidden" /> te espera
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="mt-6 text-base leading-relaxed text-white/50 md:text-lg">
+      Reservá tu mesa o pedí por WhatsApp. <br class="hidden md:block" />
+      Te esperamos con los mejores sabores.
+    </p>
+
+    <!-- CTA: Large red pill -->
+    <div class="mt-10">
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 rounded-full bg-[#E73134] px-10 py-4 text-base font-semibold text-white shadow-2xl shadow-lroma-red/25 transition-all duration-300 hover:bg-[#cc1f22] hover:shadow-2xl hover:shadow-lroma-red/40 hover:scale-[1.03] active:scale-[0.98]"
+      >
+        <MessageCircle class="size-5" data-icon="inline-start" />
+        Contactanos por WhatsApp
+      </a>
+    </div>
+
+    <!-- Subtle hint text -->
+    <p class="mt-6 text-xs text-white/25">
+      Respondemos en minutos — Lunes a Domingo de 12:00 a 00:00
+    </p>
+  </div>
+</section>

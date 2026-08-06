@@ -1,0 +1,280 @@
+---
+// CinematicHero — Editorial split layout
+// Layer 1: Dark bg → Layer 2: Red glow → Layer 3: Food image + Gradient mask
+// Layer 4: Oversized serif typography overlapping → Layer 5: Floating glass card
+// GSAP entrance: scale + blur → sharp, staggered
+import { MessageCircle, ChevronDown } from "lucide-react";
+
+const whatsappUrl =
+  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20hacer%20un%20pedido";
+---
+
+<section
+  class="relative min-h-[100dvh] w-full overflow-hidden bg-lroma-black"
+  aria-label="Hero principal"
+>
+  <!-- ============================================
+       Layer 2: Red radial glow — bottom-left
+       ============================================ -->
+  <div
+    class="pointer-events-none absolute -bottom-20 -left-20 h-[600px] w-[600px] rounded-full bg-lroma-red/8 blur-[140px] md:h-[800px] md:w-[800px]"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Secondary warm glow — top-right -->
+  <div
+    class="pointer-events-none absolute -right-10 top-0 h-[300px] w-[300px] rounded-full bg-lroma-gold/5 blur-[100px] md:h-[400px] md:w-[400px]"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ============================================
+       Desktop: Split layout (flex-row)
+       Mobile: Stack (image first, text second)
+       ============================================ -->
+  <div class="relative z-10 mx-auto flex min-h-[100dvh] max-w-[1440px] flex-col md:flex-row md:items-stretch">
+
+    <!-- ============================================
+         RIGHT / TOP: Food photography
+         Mobile: order-first (on top, 60vh)
+         Desktop: md:order-last (right side, 40%)
+         ============================================ -->
+    <div
+      class="relative order-first h-[55vh] w-full shrink-0 overflow-hidden md:order-last md:h-auto md:w-[42%]"
+      id="hero-image"
+    >
+      <img
+        src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fm=webp&fit=crop&q=85"
+        alt="Chef preparando pizza artesanal en horno de leña con iluminación dramática"
+        class="h-full w-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+      />
+
+      <!-- Gradient mask: on mobile — bottom fade to black. On desktop — left edge where text overlaps -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-lroma-black via-lroma-black/30 to-transparent md:bg-gradient-to-r md:from-lroma-black/90 md:via-lroma-black/20 md:to-transparent"
+        aria-hidden="true"
+      ></div>
+
+      <!-- ============================================
+           Layer 5: Floating glass card — over bottom-left of image
+           ============================================ -->
+      <div
+        id="hero-floating-card"
+        class="absolute bottom-6 left-4 z-20 rounded-2xl border border-white/10 bg-black/35 backdrop-blur-sm px-5 py-4 shadow-2xl md:-left-10 md:bottom-12"
+      >
+        <span class="text-[10px] font-semibold tracking-[0.2em] text-lroma-gold uppercase">
+          Destacado
+        </span>
+        <p class="mt-1 font-heading text-sm font-bold leading-tight text-white md:text-base">
+          Pizza Margherita
+        </p>
+        <div class="mt-1.5 flex items-center gap-2">
+          <span class="font-heading text-sm font-bold text-lroma-gold">$12.000</span>
+          <span class="h-1 w-1 rounded-full bg-lroma-red/60"></span>
+          <span class="text-[11px] text-white/50">La más pedida</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================
+         LEFT / BOTTOM: Typography
+         Mobile: below image
+         Desktop: left side, text overlaps into image via negative margin
+         ============================================ -->
+    <div class="relative z-10 flex flex-col justify-center px-6 pt-10 pb-20 md:w-[58%] md:px-16 md:py-0 md:pr-0 md:-mr-16">
+      <!-- Layer 4: Oversized L'ROMA heading — overlaps into image on desktop -->
+      <h1
+        id="hero-title"
+        class="font-heading text-[clamp(3rem,12vw,10rem)] font-black leading-[0.82] tracking-[-0.03em] text-white"
+      >
+        L'ROMA
+      </h1>
+
+      <!-- Gold subtitle -->
+      <p
+        id="hero-subtitle"
+        class="mt-2 text-[clamp(1rem,2.5vw,1.5rem)] font-light tracking-[0.3em] text-lroma-gold uppercase md:mt-3"
+      >
+        Pizza &amp; Grill
+      </p>
+
+      <!-- Thin gold divider -->
+      <div
+        id="hero-divider"
+        class="mt-4 h-px w-20 bg-gradient-to-r from-lroma-gold/60 to-transparent md:w-32"
+      ></div>
+
+      <!-- Tagline -->
+      <p
+        id="hero-tagline"
+        class="mt-5 max-w-sm text-base leading-relaxed text-white/55 md:mt-6 md:text-lg md:text-white/50"
+      >
+        Más que una pizza, una experiencia.
+      </p>
+
+      <!-- CTA pills -->
+      <div
+        id="hero-ctas"
+        class="mt-8 flex flex-wrap items-center gap-3 md:mt-10"
+      >
+        <!-- Ghost pill: Ver Menú -->
+        <a
+          href="/menu"
+          class="inline-flex items-center rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/8"
+        >
+          Ver Menú
+        </a>
+
+        <!-- Red pill: WhatsApp CTA -->
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-[#E73134] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-lroma-red/25 transition-all duration-300 hover:bg-[#cc1f22] hover:shadow-xl hover:shadow-lroma-red/35"
+        >
+          <MessageCircle
+            class="size-4"
+            data-icon="inline-start"
+          />
+          Pedir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       Scroll indicator — animated chevron
+       ============================================ -->
+  <div
+    id="hero-scroll-indicator"
+    class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+  >
+    <div class="animate-bounce motion-reduce:animate-none">
+      <ChevronDown
+        class="size-5 text-white/25"
+        aria-hidden="true"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     GSAP Entrance Animation
+     Staggered: image → title → subtitle → divider → tagline → CTAs → floating card
+     ============================================ -->
+<script>
+  (async () => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    try {
+      const { gsap } = await import(
+        "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"
+      );
+
+      gsap.set(
+        [
+          "#hero-image",
+          "#hero-title",
+          "#hero-subtitle",
+          "#hero-divider",
+          "#hero-tagline",
+          "#hero-ctas",
+          "#hero-floating-card",
+          "#hero-scroll-indicator",
+        ],
+        { visibility: "visible" }
+      );
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.3,
+      });
+
+      // 1. Image: scale + fade in
+      tl.fromTo(
+        "#hero-image",
+        { scale: 1.12, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.1 },
+        0
+      )
+
+        // 2. Title: slide from left + blur → sharp
+        .fromTo(
+          "#hero-title",
+          { x: -80, opacity: 0, filter: "blur(10px)" },
+          { x: 0, opacity: 1, filter: "blur(0px)", duration: 1 },
+          "-=0.6"
+        )
+
+        // 3. Subtitle
+        .fromTo(
+          "#hero-subtitle",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7 },
+          "-=0.5"
+        )
+
+        // 4. Divider
+        .fromTo(
+          "#hero-divider",
+          { scaleX: 0, transformOrigin: "left center" },
+          { scaleX: 1, duration: 0.6 },
+          "-=0.3"
+        )
+
+        // 5. Tagline
+        .fromTo(
+          "#hero-tagline",
+          { y: 15, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.65 },
+          "-=0.4"
+        )
+
+        // 6. CTAs
+        .fromTo(
+          "#hero-ctas",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7 },
+          "-=0.3"
+        )
+
+        // 7. Floating card
+        .fromTo(
+          "#hero-floating-card",
+          { y: 30, opacity: 0, scale: 0.9 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.7 },
+          "-=0.65"
+        )
+
+        // 8. Scroll indicator
+        .fromTo(
+          "#hero-scroll-indicator",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5 },
+          "-=0.2"
+        );
+    } catch {
+      // GSAP failed to load — elements are visible by default via CSS
+      // so the layout still works without animation
+    }
+  })();
+</script>
+
+<!-- Fallback: ensure elements are visible if JS is disabled or GSAP fails -->
+<style is:global>
+  #hero-title,
+  #hero-subtitle,
+  #hero-divider,
+  #hero-tagline,
+  #hero-ctas,
+  #hero-floating-card,
+  #hero-scroll-indicator {
+    visibility: visible;
+  }
+</style>
