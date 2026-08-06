@@ -1,0 +1,164 @@
+---
+// MasonryGrid — Bento grid of food photography
+// Mixed aspect ratios, lazy loading, blur-up placeholders
+// Click opens lightbox via data-gallery-image
+import GsapReveal from "@/components/global/GsapReveal";
+
+const images = [
+  {
+    src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&fm=webp&fit=crop&q=80",
+    alt: "Chef preparando pizza artesanal en horno de leña",
+    span: "md:row-span-2 md:col-span-2",
+    aspect: "aspect-[4/5] md:aspect-auto",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&fm=webp&fit=crop&q=80",
+    alt: "Pizza Margherita con albahaca fresca sobre mesa de madera",
+    span: "md:col-span-1",
+    aspect: "aspect-square",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&fm=webp&fit=crop&q=80",
+    alt: "Baby beef jugoso con papas rústicas y chimichurri",
+    span: "md:row-span-2",
+    aspect: "aspect-[4/5] md:aspect-auto",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&fm=webp&fit=crop&q=80",
+    alt: "Hamburguesa gourmet con queso cheddar derretido",
+    span: "md:col-span-2",
+    aspect: "aspect-[16/10]",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&fm=webp&fit=crop&q=80",
+    alt: "Ambiente cálido del restaurante con iluminación suave",
+    span: "md:row-span-2 md:col-span-2",
+    aspect: "aspect-square md:aspect-auto",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&fm=webp&fit=crop&q=80",
+    alt: "Pasta carbonara con panceta y yema de huevo",
+    span: "",
+    aspect: "aspect-square",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&fm=webp&fit=crop&q=80",
+    alt: "Ingredientes frescos: verduras coloridas y hierbas aromáticas",
+    span: "md:col-span-2",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&fm=webp&fit=crop&q=80",
+    alt: "Cóctel artesanal con hielo y decoración cítrica",
+    span: "",
+    aspect: "aspect-[3/4]",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1574915371488-6fc8b03ff8a3?w=800&fm=webp&fit=crop&q=80",
+    alt: "Bife de chorizo a la parrilla con vegetales asados",
+    span: "md:row-span-2",
+    aspect: "aspect-[4/5] md:aspect-auto",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800&fm=webp&fit=crop&q=80",
+    alt: "Mesa de picada con quesos, fiambres y panes artesanales",
+    span: "md:col-span-2",
+    aspect: "aspect-[16/9]",
+  },
+];
+---
+
+<section
+  class="px-6 py-24 md:py-36"
+  aria-labelledby="gallery-heading"
+>
+  <div class="mx-auto max-w-7xl">
+    <!-- ============================================
+         Section header — editorial
+         ============================================ -->
+    <div class="mb-16 md:mb-20">
+      <span
+        class="inline-block text-xs font-semibold tracking-[0.25em] text-lroma-gold uppercase"
+      >
+        Galería
+      </span>
+      <h1
+        id="gallery-heading"
+        class="mt-4 font-heading text-[clamp(2rem,5vw,3.5rem)] leading-tight text-white md:max-w-md"
+      >
+        Nuestra cocina
+      </h1>
+      <div
+        class="mt-5 h-px w-16 bg-gradient-to-r from-lroma-gold/50 to-transparent"
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    <!-- ============================================
+         Bento / Masonry grid
+         Mobile: 2-column grid, tall cards
+         Desktop: 4-column with varied spans
+         ============================================ -->
+    <div
+      class="grid auto-rows-[200px] gap-3 md:auto-rows-[240px] md:grid-cols-4 md:gap-4"
+      role="list"
+      aria-label="Galería de imágenes"
+    >
+      {images.map((img, i) => (
+        <GsapReveal
+          direction="up"
+          delay={0.05 * i}
+          duration={0.7}
+          blur={true}
+        >
+          <button
+            role="listitem"
+            data-gallery-image={i.toString()}
+            aria-label={`Ver ${img.alt}`}
+            class={`group relative w-full overflow-hidden rounded-2xl border border-white/5 bg-black/30 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/10 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-lroma-gold/50 ${img.span} ${img.aspect}`}
+          >
+            <!-- Blur-up placeholder (low-res base64) + full image -->
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
+            />
+
+            <!-- Hover overlay -->
+            <div
+              class="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              <span class="p-4 text-xs font-medium text-white/80">
+                Ampliar
+              </span>
+            </div>
+          </button>
+        </GsapReveal>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Lightbox JS — click handler broadcasts to
+     GalleryLightbox React island via custom event
+     ============================================ -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleryButtons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-gallery-image]"
+    );
+
+    galleryButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = parseInt(btn.dataset.galleryImage || "0", 10);
+        window.dispatchEvent(
+          new CustomEvent("gallery:open", { detail: { index } })
+        );
+      });
+    });
+  });
+</script>

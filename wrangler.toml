@@ -1,0 +1,7 @@
+# L'Roma Pizza & Grill — Cloudflare Pages config
+name = "lroma-website"
+compatibility_date = "2026-08-06"
+
+# Static site served from dist/
+[site]
+bucket = "./dist"

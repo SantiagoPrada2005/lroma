@@ -1,0 +1,25 @@
+---
+// Menu page — L'Roma Pizza & Grill
+// Fetches menu items from Content Collections, passes to React island
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MenuPage from "@/components/menu/MenuPage";
+import { getCollection } from "astro:content";
+
+const menuItems = await getCollection("menu");
+const serializedItems = menuItems.map((item) => ({
+  id: item.id,
+  name: item.data.name,
+  description: item.data.description,
+  price: item.data.price,
+  category: item.data.category,
+  image: item.data.image,
+  featured: item.data.featured,
+}));
+---
+
+<BaseLayout
+  title="Menú"
+  description="Explorá nuestro menú — pizzas artesanales, parrilla, pastas y más. Elegí tus platos y pedí directo por WhatsApp."
+>
+  <MenuPage items={serializedItems} client:load />
+</BaseLayout>

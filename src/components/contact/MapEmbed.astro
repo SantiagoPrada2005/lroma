@@ -1,0 +1,74 @@
+---
+// MapEmbed — Simple map section
+// Styled placeholder with address overlay
+// v1: dark-themed static image + link to Google Maps
+import GsapReveal from "@/components/global/GsapReveal";
+---
+
+<section
+  class="border-t border-white/5 px-6 py-16 md:py-24"
+  aria-labelledby="map-heading"
+>
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-8 text-center">
+      <h2
+        id="map-heading"
+        class="font-heading text-2xl text-white"
+      >
+        Dónde estamos
+      </h2>
+    </div>
+
+    <GsapReveal direction="up" duration={0.7} blur={true}>
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=L'Roma+Pizza+Grill+Rosario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group relative block overflow-hidden rounded-3xl border border-white/10 transition-all duration-500 hover:border-white/20"
+      >
+        <!-- Dark placeholder with grid pattern -->
+        <div class="relative aspect-[21/9] w-full bg-black/60">
+          <!-- Subtle grid pattern -->
+          <div
+            class="absolute inset-0 opacity-[0.03]"
+            style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px); background-size: 40px 40px;"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Center pin marker -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="flex flex-col items-center">
+              <!-- Pin icon -->
+              <svg
+                class="size-10 text-lroma-red drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <!-- Pulsing circle -->
+              <div
+                class="absolute size-14 rounded-full bg-lroma-red/20 animate-ping"
+                aria-hidden="true"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Address overlay -->
+          <div class="absolute bottom-4 left-4 rounded-xl border border-white/10 bg-black/60 px-4 py-3 backdrop-blur-sm md:bottom-6 md:left-6">
+            <p class="text-xs text-lroma-gold/80 uppercase tracking-wider">
+              Rosario, Santa Fe
+            </p>
+            <p class="mt-1 text-sm font-medium text-white md:text-base">
+              Av. Siempre Viva 742
+            </p>
+            <p class="mt-1 text-xs text-white/40 transition-colors group-hover:text-white/60">
+              Abrir en Google Maps →
+            </p>
+          </div>
+        </div>
+      </a>
+    </GsapReveal>
+  </div>
+</section>

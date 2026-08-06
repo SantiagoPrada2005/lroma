@@ -1,0 +1,17 @@
+---
+// Gallery page — L'Roma Pizza & Grill
+// Sections: Bento Masonry Grid → Scroll Choreography → Footer
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MasonryGrid from "@/components/gallery/MasonryGrid.astro";
+import ScrollChoreographySection from "@/components/gallery/ScrollChoreographySection.astro";
+import GalleryLightbox from "@/components/gallery/GalleryLightbox";
+---
+
+<BaseLayout
+  title="Galería"
+  description="L'Roma Pizza & Grill — Nuestra cocina, ambiente y momentos capturados en imágenes."
+>
+  <MasonryGrid />
+  <ScrollChoreographySection />
+  <GalleryLightbox client:load />
+</BaseLayout>

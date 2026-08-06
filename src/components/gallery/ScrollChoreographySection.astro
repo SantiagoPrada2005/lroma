@@ -1,0 +1,43 @@
+---
+// ScrollChoreographySection — wraps 21st.dev ScrollChoreography
+// 4-image diagonal scroll choreography (300vh, 3 phases)
+// using framer-motion useScroll / useTransform
+import ScrollChoreography from "@/components/ui/scroll-choreography";
+---
+
+<section
+  class="bg-lroma-black px-6 py-12 md:py-24"
+  aria-labelledby="cocina-heading"
+>
+  <div class="mx-auto mb-10 max-w-7xl md:mb-16">
+    <span
+      class="inline-block text-xs font-semibold tracking-[0.25em] text-lroma-gold uppercase"
+    >
+      Nuestra cocina
+    </span>
+    <h2
+      id="cocina-heading"
+      class="mt-4 font-heading text-[clamp(1.75rem,4vw,3rem)] leading-tight text-white"
+    >
+      El arte en cada plato
+    </h2>
+    <div
+      class="mt-4 h-px w-16 bg-gradient-to-r from-lroma-gold/50 to-transparent"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <ScrollChoreography
+    client:load
+    images={{
+      topLeft:
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fm=webp&fit=crop&q=85",
+      topRight:
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fm=webp&fit=crop&q=85",
+      bottomLeft:
+        "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&fm=webp&fit=crop&q=85",
+      bottomRight:
+        "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=1200&fm=webp&fit=crop&q=85",
+    }}
+  />
+</section>

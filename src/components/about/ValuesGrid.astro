@@ -1,0 +1,88 @@
+---
+// ValuesGrid — 3 brand value cards
+// Calidad (Flame), Pasión (Heart), Comunidad (Users)
+// Subtle glass cards, mobile: stack, desktop: 3 columns
+import { Flame, Heart, Users } from "lucide-react";
+import GsapReveal from "@/components/global/GsapReveal";
+
+const values = [
+  {
+    icon: Flame,
+    label: "Calidad",
+    description:
+      "Cada ingrediente es seleccionado a mano. Masa madre de 48 horas, productos frescos de estación y cortes premium. No aceptamos menos que la excelencia.",
+  },
+  {
+    icon: Heart,
+    label: "Pasión",
+    description:
+      "Cocinamos con el corazón. Cada pizza, cada corte a la parrilla, cada plato lleva la dedicación de un equipo que ama lo que hace.",
+  },
+  {
+    icon: Users,
+    label: "Comunidad",
+    description:
+      "L'Roma es de todos. Un espacio donde compartir, celebrar y crear recuerdos. Apoyamos productores locales y construimos lazos que van más allá de la mesa.",
+  },
+];
+---
+
+<section
+  class="border-t border-white/5 px-6 py-24 md:py-36"
+  aria-labelledby="values-heading"
+>
+  <div class="mx-auto max-w-7xl">
+    <!-- Section header -->
+    <div class="mb-16 text-center md:mb-20">
+      <span
+        class="inline-block text-xs font-semibold tracking-[0.25em] text-lroma-gold uppercase"
+      >
+        Valores
+      </span>
+      <h2
+        id="values-heading"
+        class="mt-4 font-heading text-[clamp(1.75rem,4vw,3rem)] leading-tight text-white"
+      >
+        Lo que nos define
+      </h2>
+      <div
+        class="mx-auto mt-5 h-px w-16 bg-gradient-to-r from-transparent via-lroma-gold/40 to-transparent"
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    <!-- Values cards — 3 columns on desktop, stack on mobile -->
+    <div
+      class="grid gap-6 md:grid-cols-3 md:gap-8"
+      role="list"
+      aria-label="Valores de L'Roma"
+    >
+      {values.map((value, i) => (
+        <GsapReveal
+          direction="up"
+          delay={0.12 * i}
+          duration={0.7}
+          blur={true}
+        >
+          <article
+            role="listitem"
+            class="group flex flex-col items-center rounded-3xl border border-white/5 bg-white/[0.02] px-8 py-12 backdrop-blur-sm transition-all duration-500 hover:border-white/10 hover:bg-white/[0.04]"
+          >
+            <!-- Icon -->
+            <div class="flex size-16 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold transition-colors duration-500 group-hover:bg-lroma-gold/20">
+              <value.icon class="size-7" aria-hidden="true" />
+            </div>
+
+            <h3 class="mt-6 font-heading text-xl font-bold text-white">
+              {value.label}
+            </h3>
+
+            <p class="mt-3 text-center text-sm leading-relaxed text-white/50 md:text-base">
+              {value.description}
+            </p>
+          </article>
+        </GsapReveal>
+      ))}
+    </div>
+  </div>
+</section>

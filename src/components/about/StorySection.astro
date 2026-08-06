@@ -1,0 +1,126 @@
+---
+// StorySection — Editorial narrative layout
+// Sections with oversized Playfair Display headings
+// Cinematic images + narrative text, GSAP scroll reveals
+import GsapReveal from "@/components/global/GsapReveal";
+
+const storyBeats = [
+  {
+    id: "origen",
+    heading: "Cómo empezó todo",
+    body: "L'Roma nació de un sueño compartido: crear un espacio donde la pizza artesanal italiana, la parrilla argentina y la cocina de autor convivan en un solo lugar. Cada plato cuenta una historia de pasión por los ingredientes frescos, las recetas de familia y el fuego que transforma lo simple en extraordinario.",
+    image:
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fm=webp&fit=crop&q=85",
+    imageAlt: "Chef preparando pizza en horno de leña con iluminación dramática",
+    imageOrder: "md:order-last",
+    textOrder: "",
+  },
+  {
+    id: "cocina",
+    heading: "Nuestra cocina",
+    body: "En L'Roma la cocina no tiene fronteras. Fusionamos la tradición italiana con cortes argentinos a la parrilla y el espíritu audaz del BBQ americano. Masa madre de 48 horas de fermentación, carnes seleccionadas, vegetales de estación y el toque ahumado que solo el fuego real puede dar. No hacemos atajos — hacemos comida que se siente.",
+    image:
+      "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&fm=webp&fit=crop&q=85",
+    imageAlt: "Baby beef a la parrilla con chimichurri y papas rústicas",
+    imageOrder: "",
+    textOrder: "md:order-last",
+  },
+  {
+    id: "experiencia",
+    heading: "La experiencia L'Roma",
+    body: "Más que un restaurante, L'Roma es un punto de encuentro. Iluminación cálida, diseño industrial con acentos de bronce, música que acompaña sin invadir, y un equipo que te recibe como en casa. Acá cada cena se convierte en un recuerdo — ya sea una salida entre amigos, una cita especial o una celebración familiar.",
+    image:
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&fm=webp&fit=crop&q=85",
+    imageAlt: "Ambiente cálido del restaurante con mesas elegantemente preparadas",
+    imageOrder: "md:order-last",
+    textOrder: "",
+  },
+];
+---
+
+<section
+  class="px-6 py-24 md:py-36"
+  aria-labelledby="about-heading"
+>
+  <div class="mx-auto max-w-7xl">
+    <!-- ============================================
+         Page header
+         ============================================ -->
+    <div class="mb-20 md:mb-28">
+      <span
+        class="inline-block text-xs font-semibold tracking-[0.25em] text-lroma-gold uppercase"
+      >
+        Nosotros
+      </span>
+      <h1
+        id="about-heading"
+        class="mt-4 font-heading text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.95] text-white md:max-w-2xl"
+      >
+        Una historia de fuego y pasión
+      </h1>
+      <div
+        class="mt-6 h-px w-20 bg-gradient-to-r from-lroma-gold/60 to-transparent"
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    <!-- ============================================
+         Story beats — alternating image/text layout
+         ============================================ -->
+    <div class="space-y-32 md:space-y-40">
+      {storyBeats.map((beat) => (
+        <article
+          id={beat.id}
+          class="flex flex-col items-center gap-10 md:flex-row md:gap-16"
+        >
+          <!-- Image -->
+          <GsapReveal
+            direction="up"
+            duration={0.9}
+            blur={true}
+            className={`w-full md:w-1/2 ${beat.imageOrder}`}
+          >
+            <div class="relative overflow-hidden rounded-3xl border border-white/5">
+              <img
+                src={beat.image}
+                alt={beat.imageAlt}
+                loading="lazy"
+                decoding="async"
+                class="aspect-[4/3] w-full object-cover transition-transform duration-1000 hover:scale-[1.02]"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-lroma-black/60 via-transparent to-transparent"
+                aria-hidden="true"
+              ></div>
+            </div>
+          </GsapReveal>
+
+          <!-- Text -->
+          <GsapReveal
+            direction="up"
+            delay={0.15}
+            duration={0.8}
+            blur={true}
+            className={`w-full md:w-1/2 ${beat.textOrder}`}
+          >
+            <h2 class="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] leading-tight text-white">
+              {beat.heading}
+            </h2>
+            <div
+              class="mt-5 h-px w-12 bg-gradient-to-r from-lroma-gold/50 to-transparent"
+              aria-hidden="true"
+            ></div>
+            <p class="mt-6 max-w-lg text-base leading-relaxed text-white/55 md:text-lg">
+              {beat.body}
+            </p>
+          </GsapReveal>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     GSAP scroll-linked reveals via GsapReveal
+     (handled by the component itself)
+     ============================================ -->
