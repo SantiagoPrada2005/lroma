@@ -263,114 +263,114 @@ export default function ContactPage() {
             <span className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
           </div>
 
-          {/* Bento grid */}
-          <div className="grid gap-4 md:grid-cols-3 md:gap-5 auto-rows-auto">
+          {/* Bento grid — 2 columns on mobile, 3 columns on desktop */}
+          <div className="grid grid-cols-2 gap-3.5 md:grid-cols-3 md:gap-5 auto-rows-auto">
             {/* WhatsApp — featured, spans 2 cols */}
             <BentoCard
-              className="md:col-span-2 group/whatsapp"
+              className="col-span-2 md:col-span-2 group/whatsapp"
               accent="red"
             >
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-full flex-col justify-between p-6 md:p-8"
+                className="flex h-full flex-col justify-between p-5 sm:p-6 md:p-8"
               >
                 <div>
                   {/* Icon */}
-                  <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-lroma-red/15 ring-1 ring-lroma-red/20">
-                    <MessageCircle className="size-5 text-lroma-red" />
+                  <span className="inline-flex size-10 items-center justify-center rounded-2xl bg-lroma-red/15 ring-1 ring-lroma-red/20 md:size-12">
+                    <MessageCircle className="size-4 text-lroma-red md:size-5" />
                   </span>
                   {/* Content */}
-                  <h2 className="mt-5 font-heading text-2xl font-bold text-white/90 md:text-3xl">
+                  <h2 className="mt-4 font-heading text-xl font-bold text-white/90 sm:text-2xl md:text-3xl">
                     Contactanos por WhatsApp
                   </h2>
-                  <p className="mt-2 max-w-md text-sm leading-relaxed text-white/40">
+                  <p className="mt-1.5 max-w-md text-xs leading-relaxed text-white/40 sm:text-sm">
                     Respondemos en minutos. Pedí, reservá o consultá lo que
                     necesites — directo y sin vueltas.
                   </p>
                 </div>
                 {/* Inline CTA */}
-                <span className="mt-6 inline-flex items-center gap-2 self-start rounded-full bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/70 transition-all duration-300 group-hover/whatsapp:bg-lroma-red/20 group-hover/whatsapp:text-white">
+                <span className="mt-5 inline-flex items-center gap-2 self-start rounded-full bg-white/[0.06] px-3.5 py-1.5 text-xs font-medium text-white/70 transition-all duration-300 group-hover/whatsapp:bg-lroma-red/20 group-hover/whatsapp:text-white sm:px-4 sm:py-2 sm:text-sm">
                   Abrir chat
                   <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover/whatsapp:translate-x-0.5 group-hover/whatsapp:-translate-y-px" />
                 </span>
               </a>
             </BentoCard>
 
-            {/* Phone */}
-            <BentoCard className="group/phone">
+            {/* Phone — 1 col on mobile */}
+            <BentoCard className="col-span-1 group/phone">
               <a
                 href="tel:+549XXXXXXXXX"
-                className="flex h-full flex-col justify-between p-6"
+                className="flex h-full flex-col justify-between p-4 sm:p-6"
               >
-                <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15">
-                  <Phone className="size-5 text-lroma-gold" />
+                <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15 sm:size-11">
+                  <Phone className="size-4 text-lroma-gold sm:size-5" />
                 </span>
-                <div>
-                  <p className="text-xs font-medium tracking-wide text-white/30 uppercase">
+                <div className="mt-4 sm:mt-0">
+                  <p className="text-[10px] font-medium tracking-wide text-white/30 uppercase sm:text-xs">
                     Teléfono
                   </p>
-                  <p className="mt-1 font-heading text-xl font-bold text-white/85 transition-colors duration-300 group-hover/phone:text-lroma-gold md:text-2xl">
+                  <p className="mt-1 font-heading text-xs font-bold text-white/85 transition-colors duration-300 group-hover/phone:text-lroma-gold sm:text-xl md:text-2xl break-words">
                     +54 9 XXX XXX-XXXX
                   </p>
-                  <p className="mt-2 text-xs text-white/25 transition-colors duration-300 group-hover/phone:text-white/40">
+                  <p className="mt-1.5 text-[10px] text-white/25 transition-colors duration-300 group-hover/phone:text-white/40 sm:text-xs">
                     Tocá para llamar →
                   </p>
                 </div>
               </a>
             </BentoCard>
 
-            {/* Address */}
-            <BentoCard className="group/map">
+            {/* Address — 1 col on mobile */}
+            <BentoCard className="col-span-1 group/map">
               <a
                 href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-full flex-col justify-between p-6"
+                className="flex h-full flex-col justify-between p-4 sm:p-6"
               >
-                <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15">
-                  <MapPin className="size-5 text-lroma-gold" />
+                <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15 sm:size-11">
+                  <MapPin className="size-4 text-lroma-gold sm:size-5" />
                 </span>
-                <div>
-                  <p className="text-xs font-medium tracking-wide text-white/30 uppercase">
+                <div className="mt-4 sm:mt-0">
+                  <p className="text-[10px] font-medium tracking-wide text-white/30 uppercase sm:text-xs">
                     Dirección
                   </p>
-                  <p className="mt-1 text-base font-semibold text-white/80 leading-snug">
+                  <p className="mt-1 text-xs font-semibold text-white/80 leading-snug sm:text-base">
                     Av. Siempre Viva 742
                   </p>
-                  <p className="text-sm text-white/35">Rosario, Santa Fe</p>
-                  <p className="mt-2 text-xs text-white/25 transition-colors duration-300 group-hover/map:text-white/40">
-                    Ver en Google Maps →
+                  <p className="text-[11px] text-white/35 sm:text-sm">Rosario, Santa Fe</p>
+                  <p className="mt-1.5 text-[10px] text-white/25 transition-colors duration-300 group-hover/map:text-white/40 sm:text-xs">
+                    Ver en Maps →
                   </p>
                 </div>
               </a>
             </BentoCard>
 
-            {/* Hours — spans 2 cols on desktop */}
-            <BentoCard className="md:col-span-2">
-              <div className="flex h-full flex-col p-6 md:p-7">
-                <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15">
-                  <Clock className="size-5 text-lroma-gold" />
+            {/* Hours — spans 2 cols */}
+            <BentoCard className="col-span-2 md:col-span-2">
+              <div className="flex h-full flex-col p-4 sm:p-6 md:p-7">
+                <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15 sm:size-11">
+                  <Clock className="size-4 text-lroma-gold sm:size-5" />
                 </span>
-                <div className="mt-5 flex-1">
-                  <p className="text-xs font-medium tracking-wide text-white/30 uppercase">
+                <div className="mt-3 sm:mt-5 flex-1">
+                  <p className="text-[10px] font-medium tracking-wide text-white/30 uppercase sm:text-xs">
                     Horarios
                   </p>
-                  <div className="mt-3 space-y-0">
+                  <div className="mt-2 sm:mt-3 space-y-0">
                     {HOURS.map((row, i) => (
                       <div
                         key={row.day}
                         className={cn(
-                          "flex items-center justify-between py-3",
+                          "flex items-center justify-between py-2 sm:py-3",
                           i < HOURS.length - 1 &&
                             "border-b border-white/[0.04]",
                         )}
                       >
-                        <span className="text-sm text-white/60">
+                        <span className="text-xs text-white/60 sm:text-sm">
                           {row.day}
                         </span>
-                        <span className="text-sm font-semibold text-white/85 tabular-nums">
+                        <span className="text-xs font-semibold text-white/85 tabular-nums sm:text-sm">
                           {row.time}
                         </span>
                       </div>
@@ -380,71 +380,71 @@ export default function ContactPage() {
               </div>
             </BentoCard>
 
-            {/* Social */}
-            <BentoCard>
-              <div className="flex h-full flex-col justify-between p-6">
-                <span className="inline-flex size-11 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15">
-                  <Sparkles className="size-5 text-lroma-gold" />
-                </span>
-                <div>
-                  <p className="text-xs font-medium tracking-wide text-white/30 uppercase">
+            {/* Social — spans 2 cols on mobile, 1 col on desktop */}
+            <BentoCard className="col-span-2 md:col-span-1">
+              <div className="flex h-full flex-row items-center justify-between p-4 sm:p-6 md:flex-col md:items-start md:justify-between">
+                <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-0">
+                  <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15 sm:size-11">
+                    <Sparkles className="size-4 text-lroma-gold sm:size-5" />
+                  </span>
+                  <p className="text-[10px] font-medium tracking-wide text-white/30 uppercase sm:text-xs md:mt-5">
                     Redes
                   </p>
-                  <div className="mt-3 flex gap-2">
-                    <a
-                      href="https://instagram.com/lromapizza"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex size-10 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80"
-                      aria-label="Instagram"
+                </div>
+                <div className="flex gap-2 md:mt-3">
+                  <a
+                    href="https://instagram.com/lromapizza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex size-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80 sm:size-10"
+                    aria-label="Instagram"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <rect
-                          width="20"
-                          height="20"
-                          x="2"
-                          y="2"
-                          rx="5"
-                          ry="5"
-                        />
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://facebook.com/lromapizza"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex size-10 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80"
-                      aria-label="Facebook"
+                      <rect
+                        width="20"
+                        height="20"
+                        x="2"
+                        y="2"
+                        rx="5"
+                        ry="5"
+                      />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                  </a>
+                  <a
+                    href="https://facebook.com/lromapizza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex size-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80 sm:size-10"
+                    aria-label="Facebook"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                      </svg>
-                    </a>
-                  </div>
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                  </a>
                 </div>
               </div>
             </BentoCard>
