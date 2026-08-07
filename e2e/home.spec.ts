@@ -31,34 +31,29 @@ test.describe("Home page", () => {
     ).toBeVisible();
   });
 
-  test("featured dishes section renders", async ({ page }) => {
+  test("circular gallery section renders", async ({ page }) => {
     await page.goto("/");
 
     // Section heading
     await expect(
-      page.getByRole("heading", { name: /Lo mejor de nuestra cocina/i })
+      page.getByRole("heading", { name: /Girá para descubrir/i })
     ).toBeVisible();
 
-    // Scope to featured dishes list to avoid collision with hero floating card
-    const featuredList = page.locator('[aria-label="Platos destacados"]');
-
-    // All 4 dishes are rendered — use heading semantics (h3) to avoid ambiguity
+    // Badge
     await expect(
-      featuredList.getByRole("heading", { name: "Pizza Margherita" })
-    ).toBeVisible();
-    await expect(
-      featuredList.getByText("Baby Beef")
-    ).toBeVisible();
-    await expect(
-      featuredList.getByText("Pasta Carbonara")
-    ).toBeVisible();
-    await expect(
-      featuredList.getByText("Hamburguesa L'Roma")
+      page.getByText("Nuestra Carta")
     ).toBeVisible();
 
-    // CTA to full menu
+    // Scope to circular gallery
+    const gallery = page.locator('[aria-label="Galería circular del menú"]');
+    await expect(gallery).toBeVisible();
+
+    // Some menu items are present in the 3D gallery
     await expect(
-      page.getByRole("link", { name: "Ver Menú Completo" })
+      gallery.getByRole("group", { name: "Pizza Margherita" })
+    ).toBeVisible();
+    await expect(
+      gallery.getByRole("group", { name: "Baby Beef" })
     ).toBeVisible();
   });
 
