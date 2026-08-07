@@ -79,17 +79,26 @@ const ICONS: Record<string, string> = {
 </div>
 
 <script>
-  // Category navigation — vanilla JS, no framework needed
+  // Category navigation & observer refactor
   const nav = document.getElementById("category-nav") as HTMLElement;
+  const navList = document.getElementById("category-list") as HTMLElement;
   const pills = nav.querySelectorAll<HTMLButtonElement>(".category-pill");
+
+  let isManualScrolling = false;
+  let manualScrollTimeout: number | undefined;
 
   function setActive(key: string) {
     pills.forEach((p) => {
-      p.setAttribute("aria-selected", p.dataset.category === key ? "true" : "false");
+      const isSelected = p.dataset.category === key;
+      p.setAttribute("aria-selected", isSelected ? "true" : "false");
+      if (isSelected && navList) {
+        // Keep active pill visible in horizontal scroll container on mobile
+        p.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
     });
   }
 
-  // Click handler — scroll to category section
+  // Click handler — scroll to target category section
   nav.addEventListener("click", (e) => {
     const pill = (e.target as HTMLElement).closest<HTMLButtonElement>(".category-pill");
     if (!pill) return;
@@ -97,37 +106,59 @@ const ICONS: Record<string, string> = {
     const category = pill.dataset.category!;
     setActive(category);
 
+    isManualScrolling = true;
+    if (manualScrollTimeout) clearTimeout(manualScrollTimeout);
+
+    let targetEl: HTMLElement | null = null;
     if (category === "all") {
-      document.querySelector<HTMLElement>("[data-menu-grid]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      targetEl = document.querySelector<HTMLElement>("[data-menu-grid]");
     } else {
-      const section = document.querySelector<HTMLElement>(`[data-category-section="${category}"]`);
-      section?.scrollIntoView({ behavior: "smooth", block: "start" });
+      targetEl = document.querySelector<HTMLElement>(`[data-category-section="${category}"]`);
+    }
+
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Unlock observer after smooth scroll transition completes
+    manualScrollTimeout = window.setTimeout(() => {
+      isManualScrolling = false;
+    }, 800);
+  });
+
+  // Also unlock manual scroll lock when native smooth scroll finishes
+  window.addEventListener("scrollend", () => {
+    if (isManualScrolling) {
+      isManualScrolling = false;
+      if (manualScrollTimeout) clearTimeout(manualScrollTimeout);
     }
   });
 
-  // IntersectionObserver — highlight active category on scroll
-  // Deferred: category sections are rendered later in the DOM
+  // IntersectionObserver — highlight category pill on natural scroll
   function setupCategoryObserver() {
-    const sections = document.querySelectorAll<HTMLElement>("[data-category-section]");
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-category-section]"));
     if (sections.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isManualScrolling) return;
+
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("data-category-section")!;
-            setActive(id);
-            break;
+            const catKey = entry.target.getAttribute("data-category-section");
+            if (catKey) {
+              setActive(catKey);
+              break;
+            }
           }
         }
       },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 },
     );
 
     sections.forEach((s) => observer.observe(s));
   }
 
-  // Run after the full DOM is parsed (MenuGrid renders after CategoryNav)
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", setupCategoryObserver);
   } else {

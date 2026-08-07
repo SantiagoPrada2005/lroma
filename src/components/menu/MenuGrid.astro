@@ -47,7 +47,7 @@ function formatPrice(price: number): string {
 
 <section
   data-menu-grid
-  class="relative z-10 px-6 pt-8 pb-32 md:pt-12 md:pb-40"
+  class="relative z-10 px-6 pt-8 pb-32 md:pt-12 md:pb-40 scroll-mt-28 md:scroll-mt-36"
   aria-label="Menú"
 >
   <div class="mx-auto max-w-7xl">
@@ -59,8 +59,10 @@ function formatPrice(price: number): string {
         return (
           <section
             data-category-section={cat}
-            class={idx > 0 ? "mt-16 md:mt-20" : ""}
-            style={idx > 0 ? "content-visibility: auto; contain-intrinsic-size: auto 500px;" : ""}
+            class:list={[
+              "scroll-mt-28 md:scroll-mt-36",
+              idx > 0 ? "mt-16 md:mt-20" : "",
+            ]}
           >
             {/* Section eyebrow */}
             <div class="mb-8 flex items-center gap-3 md:mb-10">
