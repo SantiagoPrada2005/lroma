@@ -17,10 +17,10 @@ const whatsappUrl =
        ============================================ -->
   <div class="absolute inset-0">
     <picture>
-      <source srcset="/img/lroma-front.avif" type="image/avif" />
-      <source srcset="/img/lroma-front.webp" type="image/webp" />
+      <source srcset={`${import.meta.env.BASE_URL}img/lroma-front.avif`} type="image/avif" />
+      <source srcset={`${import.meta.env.BASE_URL}img/lroma-front.webp`} type="image/webp" />
       <img
-        src="/img/lroma-front.jpg"
+        src={`${import.meta.env.BASE_URL}img/lroma-front.jpg`}
         alt="Fachada de L'Roma Pizza & Grill"
         class="h-full w-full object-cover"
         loading="lazy"
