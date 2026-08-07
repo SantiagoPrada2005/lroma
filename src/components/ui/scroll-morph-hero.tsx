@@ -234,9 +234,9 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
       className={cn("relative h-full w-full overflow-hidden bg-[#0A0A0A]", className)}
     >
       <div className="flex h-full w-full flex-col items-center justify-center perspective-1000">
-        {/* Intro Text — L'Roma branding, fades out */}
+        {/* Intro Logo — L'Roma branding, fades out */}
         <div className="pointer-events-none absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center text-center">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             animate={
               introPhase === "circle" && morphValue < 0.5
@@ -244,22 +244,18 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
                 : { opacity: 0, filter: "blur(10px)" }
             }
             transition={{ duration: 1 }}
-            className="font-heading text-3xl font-bold tracking-tight text-white md:text-5xl"
+            className="flex items-center justify-center"
           >
-            L&apos;ROMA
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={
-              introPhase === "circle" && morphValue < 0.5
-                ? { opacity: 0.7 - morphValue }
-                : { opacity: 0 }
-            }
-            transition={{ duration: 1, delay: 0.2 }}
-            className="mt-3 text-xs font-bold uppercase tracking-[0.3em] text-lroma-gold"
-          >
-            Pizza &amp; Grill
-          </motion.p>
+            <picture>
+              <source srcSet="/img/logo.avif" type="image/avif" />
+              <source srcSet="/img/logo.webp" type="image/webp" />
+              <img
+                src="/img/logo.webp"
+                alt="L'Roma Pizza & Grill"
+                className="h-30 w-auto object-contain drop-shadow-2xl md:h-44"
+              />
+            </picture>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0 }}
             animate={
