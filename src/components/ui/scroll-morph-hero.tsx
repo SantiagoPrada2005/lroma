@@ -140,10 +140,16 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
     if (!container) return;
 
     const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const newScroll = Math.min(Math.max(scrollRef.current + e.deltaY, 0), MAX_SCROLL);
-      scrollRef.current = newScroll;
-      virtualScroll.set(newScroll);
+      const current = scrollRef.current;
+      const next = current + e.deltaY;
+
+      // Only capture scroll when inside virtual bounds.
+      // At 0 (top) or MAX_SCROLL (bottom), let the event pass to page scroll.
+      if (next > 0 && next < MAX_SCROLL) {
+        e.preventDefault();
+        scrollRef.current = Math.min(Math.max(next, 0), MAX_SCROLL);
+        virtualScroll.set(scrollRef.current);
+      }
     };
 
     let touchStartY = 0;
@@ -151,9 +157,14 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
     const handleTouchMove = (e: TouchEvent) => {
       const deltaY = touchStartY - e.touches[0].clientY;
       touchStartY = e.touches[0].clientY;
-      const newScroll = Math.min(Math.max(scrollRef.current + deltaY, 0), MAX_SCROLL);
-      scrollRef.current = newScroll;
-      virtualScroll.set(newScroll);
+      const current = scrollRef.current;
+      const next = current + deltaY;
+
+      if (next > 0 && next < MAX_SCROLL) {
+        e.preventDefault();
+        scrollRef.current = Math.min(Math.max(next, 0), MAX_SCROLL);
+        virtualScroll.set(scrollRef.current);
+      }
     };
 
     container.addEventListener("wheel", handleWheel, { passive: false });
@@ -353,6 +364,28 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
             );
           })}
         </div>
+
+        {/* Scroll indicator — appears when arc is formed, fades at bottom */}
+        <motion.div
+          style={{ opacity: contentOpacity }}
+          className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-1"
+          >
+            <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+              Seguí bajando
+            </span>
+            <svg
+              width="16" height="16" viewBox="0 0 16 16" fill="none"
+              className="text-white/30"
+            >
+              <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
