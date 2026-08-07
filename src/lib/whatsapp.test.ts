@@ -55,4 +55,32 @@ describe("formatOrderMessage", () => {
     expect(result).toContain("• Cortesía ×1 — $0");
     expect(result).toContain("Total: $0");
   });
+
+  it("includes note on a new line when provided", () => {
+    const items: OrderItem[] = [
+      { name: "Pizza Margherita", quantity: 2, price: 4500, note: "Sin cebolla" },
+      { name: "Burger Clásica", quantity: 1, price: 3800 },
+    ];
+
+    const result = formatOrderMessage(items);
+
+    expect(result).toContain("• Pizza Margherita ×2 — $9.000\n  Nota: Sin cebolla");
+    expect(result).toContain("• Burger Clásica ×1 — $3.800");
+    expect(result).toContain("Total: $12.800");
+  });
+
+  it("skips empty or whitespace-only notes", () => {
+    const items: OrderItem[] = [
+      { name: "Pizza", quantity: 1, price: 4500, note: "   " },
+      { name: "Burger", quantity: 1, price: 3800, note: "" },
+      { name: "Pasta", quantity: 1, price: 3200, note: undefined },
+    ];
+
+    const result = formatOrderMessage(items);
+
+    expect(result).not.toContain("Nota:");
+    expect(result).toContain("• Pizza ×1 — $4.500");
+    expect(result).toContain("• Burger ×1 — $3.800");
+    expect(result).toContain("• Pasta ×1 — $3.200");
+  });
 });

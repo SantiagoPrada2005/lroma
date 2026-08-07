@@ -2,6 +2,7 @@ export interface OrderItem {
   name: string;
   quantity: number;
   price: number;
+  note?: string;
 }
 
 /**
@@ -11,6 +12,7 @@ export interface OrderItem {
  * Hola L'Roma! Quiero pedir:
  *
  * • {name} ×{qty} — ${subtotal}
+ *   Nota: {note}   ← only when note is provided
  *
  * Total: ${total}
  */
@@ -21,7 +23,11 @@ export function formatOrderMessage(items: OrderItem[]): string {
 
   const lines = items.map((item) => {
     const subtotal = item.price * item.quantity;
-    return `• ${item.name} ×${item.quantity} — $${subtotal.toLocaleString("es-AR")}`;
+    const base = `• ${item.name} ×${item.quantity} — $${subtotal.toLocaleString("es-AR")}`;
+    if (item.note && item.note.trim().length > 0) {
+      return `${base}\n  Nota: ${item.note.trim()}`;
+    }
+    return base;
   });
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
