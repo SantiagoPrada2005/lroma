@@ -106,7 +106,7 @@ const menuItems = [
   <!-- Circular gallery — 500vh scroll container -->
   <div style="height: 500vh">
     <div class="sticky top-0 h-screen overflow-hidden">
-      <CircularGallery items={menuItems} client:load />
+      <CircularGallery items={menuItems} client:visible={{rootMargin: "400px"}} />
     </div>
   </div>
 </section>

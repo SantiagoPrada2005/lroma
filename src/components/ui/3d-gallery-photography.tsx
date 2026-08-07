@@ -1,6 +1,7 @@
 import type React from "react";
 import { useRef, useMemo, useCallback, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, invalidate } from "@react-three/fiber";
+import { PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 
 // Suppress THREE.Clock deprecation (internal to @react-three/fiber, harmless)
@@ -9,6 +10,18 @@ console.warn = (...args: unknown[]) => {
   if (typeof args[0] === "string" && args[0].includes("THREE.Clock")) return;
   origWarn(...args);
 };
+
+// Mobile detection (runs once on mount)
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(
+      /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) ||
+        (navigator.maxTouchPoints > 1 && window.innerWidth < 1024),
+    );
+  }, []);
+  return isMobile;
+}
 
 type ImageItem = string | { src: string; alt?: string };
 
@@ -227,6 +240,7 @@ function GalleryScene({
       setScrollVelocity((prev) => prev + event.deltaY * 0.01 * speed);
       setAutoPlay(false);
       lastInteraction.current = Date.now();
+      invalidate();
     },
     [speed],
   );
@@ -237,10 +251,12 @@ function GalleryScene({
         setScrollVelocity((prev) => prev - 2 * speed);
         setAutoPlay(false);
         lastInteraction.current = Date.now();
+        invalidate();
       } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
         setScrollVelocity((prev) => prev + 2 * speed);
         setAutoPlay(false);
         lastInteraction.current = Date.now();
+        invalidate();
       }
     },
     [speed],
@@ -259,6 +275,7 @@ function GalleryScene({
       setScrollVelocity((prev) => prev + deltaY * 0.05 * speed);
       setAutoPlay(false);
       lastInteraction.current = Date.now();
+      invalidate();
     },
     [speed],
   );
@@ -454,6 +471,7 @@ export default function InfiniteGallery({
   images,
   className = "h-96 w-full",
   style,
+  visibleCount: visibleCountProp = 8,
   fadeSettings = {
     fadeIn: { start: 0.05, end: 0.25 },
     fadeOut: { start: 0.4, end: 0.43 },
@@ -465,6 +483,9 @@ export default function InfiniteGallery({
   },
 }: InfiniteGalleryProps) {
   const [webglSupported, setWebglSupported] = useState(true);
+  const [dpr, setDpr] = useState(1.5);
+  const isMobile = useIsMobile();
+  const visibleCount = isMobile ? Math.min(visibleCountProp, 5) : visibleCountProp;
 
   useEffect(() => {
     try {
@@ -486,8 +507,23 @@ export default function InfiniteGallery({
 
   return (
     <div className={className} style={{ touchAction: "none", ...style }}>
-      <Canvas camera={{ position: [0, 0, 0], fov: 55 }} gl={{ antialias: true, alpha: true }}>
-        <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
+      <Canvas
+        camera={{ position: [0, 0, 0], fov: 55 }}
+        gl={{ antialias: !isMobile, alpha: true, powerPreference: "low-power" }}
+        frameloop="demand"
+        dpr={dpr}
+      >
+        <PerformanceMonitor
+          onIncline={() => setDpr(1.5)}
+          onDecline={() => setDpr(1)}
+        >
+          <GalleryScene
+            images={images}
+            visibleCount={visibleCount}
+            fadeSettings={fadeSettings}
+            blurSettings={blurSettings}
+          />
+        </PerformanceMonitor>
       </Canvas>
     </div>
   );

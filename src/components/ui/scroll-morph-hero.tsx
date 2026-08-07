@@ -1,8 +1,20 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useTransform, useSpring, useMotionValue, MotionConfig, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+// Mobile detection
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(
+      /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) ||
+        (navigator.maxTouchPoints > 1 && window.innerWidth < 1024),
+    );
+  }, []);
+  return isMobile;
+}
 
 // --- Types ---
 export type AnimationPhase = "scatter" | "line" | "circle" | "bottom-strip";
@@ -112,9 +124,32 @@ interface ScrollMorphHeroProps {
 }
 
 export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
+  const isMobile = useIsMobile();
+  const shouldReduceMotion = useReducedMotion();
+  const totalImages = isMobile ? 12 : 20;
+  const springConfig = isMobile
+    ? { stiffness: 20, damping: 12 }
+    : { stiffness: 40, damping: 15 };
   const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Reduced motion: show static grid
+  if (shouldReduceMotion) {
+    return (
+      <div className={cn("flex h-full w-full items-center justify-center bg-[#0A0A0A]", className)}>
+        <div className="grid grid-cols-4 gap-2 p-8 opacity-50 md:grid-cols-5">
+          {IMAGES.slice(0, 12).map((img, i) => (
+            <img key={i} src={img.src} alt={img.label} className="aspect-[3/4] rounded-lg object-cover" loading="lazy" />
+          ))}
+        </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <h1 className="font-heading text-4xl font-bold text-white md:text-7xl">L&apos;ROMA</h1>
+          <p className="mt-3 text-sm uppercase tracking-[0.3em] text-lroma-gold">Pizza &amp; Grill</p>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -229,6 +264,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
   const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div
       ref={containerRef}
       className={cn("relative h-full w-full overflow-hidden bg-[#0A0A0A]", className)}
@@ -296,21 +332,21 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
 
         {/* Image container */}
         <div className="relative flex h-full w-full items-center justify-center">
-          {IMAGES.slice(0, TOTAL_IMAGES).map((img, i) => {
+          {IMAGES.slice(0, totalImages).map((img, i) => {
             let target = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 };
 
             if (introPhase === "scatter") {
               target = scatterPositions[i];
             } else if (introPhase === "line") {
               const spacing = 70;
-              const totalWidth = TOTAL_IMAGES * spacing;
+              const totalWidth = totalImages * spacing;
               const lineX = i * spacing - totalWidth / 2;
               target = { x: lineX, y: 0, rotation: 0, scale: 1, opacity: 1 };
             } else {
-              const isMobile = containerSize.width < 768;
+              const mobileBP = containerSize.width < 768;
               const minDim = Math.min(containerSize.width, containerSize.height);
               const circleRadius = Math.min(minDim * 0.35, 350);
-              const circleAngle = (i / TOTAL_IMAGES) * 360;
+              const circleAngle = (i / totalImages) * 360;
               const circleRad = (circleAngle * Math.PI) / 180;
               const circlePos = {
                 x: Math.cos(circleRad) * circleRadius,
@@ -319,12 +355,12 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
               };
 
               const baseRadius = Math.min(containerSize.width, containerSize.height * 1.5);
-              const arcRadius = baseRadius * (isMobile ? 1.4 : 1.1);
-              const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.25);
+              const arcRadius = baseRadius * (mobileBP ? 1.4 : 1.1);
+              const arcApexY = containerSize.height * (mobileBP ? 0.35 : 0.25);
               const arcCenterY = arcApexY + arcRadius;
-              const spreadAngle = isMobile ? 100 : 130;
+              const spreadAngle = mobileBP ? 100 : 130;
               const startAngle = -90 - spreadAngle / 2;
-              const step = spreadAngle / (TOTAL_IMAGES - 1);
+              const step = spreadAngle / (totalImages - 1);
 
               const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1);
               const maxRotation = spreadAngle * 0.8;
@@ -335,7 +371,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
                 x: Math.cos(arcRad) * arcRadius + parallaxValue,
                 y: Math.sin(arcRad) * arcRadius + arcCenterY,
                 rotation: currentArcAngle + 90,
-                scale: isMobile ? 1.4 : 1.8,
+                scale: mobileBP ? 1.4 : 1.8,
               };
 
               target = {
@@ -353,7 +389,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
                 src={img.src}
                 label={img.label}
                 index={i}
-                total={TOTAL_IMAGES}
+                total={totalImages}
                 phase={introPhase}
                 target={target}
               />
@@ -384,6 +420,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
         </motion.div>
       </div>
     </div>
+    </MotionConfig>
   );
 }
 
