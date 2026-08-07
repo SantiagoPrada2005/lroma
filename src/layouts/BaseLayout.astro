@@ -11,13 +11,24 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "L'Roma Pizza & Grill — Pizza artesanal, parrilla y cocina de autor en un ambiente cálido y sofisticado.",
-  image = `${import.meta.env.BASE_URL}img/lroma-front.webp`,
+  image: imageProp,
+  imageAlt = "L'Roma Pizza & Grill — Restaurante en Rosario, Santa Fe",
+  noindex = false,
 } = Astro.props;
+
+// Canonical & absolute URLs — Astro.url/ Astro.site respect the `base` config
+const image = imageProp ?? `${import.meta.env.BASE_URL}/img/lroma-front.webp`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const absoluteImage = image.startsWith("http")
+  ? image
+  : new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -27,36 +38,106 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicons & App Icons -->
-    <link rel="icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}img/logo.ico`} />
-    <link rel="shortcut icon" href={`${import.meta.env.BASE_URL}img/logo.ico`} />
-    <link rel="icon" type="image/webp" href={`${import.meta.env.BASE_URL}img/logo.webp`} />
-    <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}img/logo.webp`} />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href={`${import.meta.env.BASE_URL}/img/logo.ico`}
+    />
+    <link
+      rel="shortcut icon"
+      href={`${import.meta.env.BASE_URL}/img/logo.ico`}
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      href={`${import.meta.env.BASE_URL}/img/logo.webp`}
+    />
+    <link
+      rel="apple-touch-icon"
+      href={`${import.meta.env.BASE_URL}/img/logo.webp`}
+    />
 
     <!-- Primary Meta -->
     <title>{title} | L'Roma Pizza & Grill</title>
     <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, nofollow" : "index, follow"}
+    />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:title" content={`${title} | L'Roma Pizza & Grill`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={image} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:site_name" content="L'Roma Pizza & Grill" />
+    <meta property="og:locale" content="es_AR" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | L'Roma Pizza & Grill`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={absoluteImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <!-- JSON-LD Structured Data — Restaurant -->
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        name: "L'Roma Pizza & Grill",
+        description,
+        url: canonicalURL,
+        image: absoluteImage,
+        servesCuisine: ["Italian", "Parrilla", "Argentina"],
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Av. Siempre Viva 742",
+          addressLocality: "Rosario",
+          addressRegion: "Santa Fe",
+          addressCountry: "AR",
+        },
+        telephone: "+54 9 341 000-0000",
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+            opens: "19:00",
+            closes: "00:00",
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Friday", "Saturday"],
+            opens: "19:00",
+            closes: "01:30",
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: "Sunday",
+            opens: "19:00",
+            closes: "00:00",
+          },
+        ],
+        sameAs: [
+          "https://instagram.com/lromapizza",
+          "https://facebook.com/lromapizza",
+        ],
+      })}
+    />
 
     <!-- Client-side navigation with View Transitions -->
     <ClientRouter />
   </head>
   <body>
     <!-- Skip to content — accessibility -->
-    <a href="#main-content" class="skip-to-content">
-      Saltar al contenido
-    </a>
+    <a href="#main-content" class="skip-to-content"> Saltar al contenido </a>
 
     <!-- Floating Navigation — React island, client:load -->
     <header id="site-header">
