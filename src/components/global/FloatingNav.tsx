@@ -12,11 +12,13 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const NAV_LINKS = [
-  { href: "/menu", label: "Menú" },
-  { href: "/gallery", label: "Galería" },
-  { href: "/about", label: "Nosotros" },
-  { href: "/contact", label: "Contacto" },
+  { href: `${base}/menu`, label: "Menú" },
+  { href: `${base}/gallery`, label: "Galería" },
+  { href: `${base}/about`, label: "Nosotros" },
+  { href: `${base}/contact`, label: "Contacto" },
 ];
 
 export default function FloatingNav() {
@@ -46,7 +48,7 @@ export default function FloatingNav() {
       >
         {/* Logo mark */}
         <a
-          href="/"
+          href={base || "/"}
           className="mr-3 flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold text-white transition-colors hover:text-lroma-red"
         >
           L&apos;ROMA
@@ -130,7 +132,7 @@ export default function FloatingNav() {
             >
               {/* Logo */}
               <motion.a
-                href="/"
+                href={base || "/"}
                 className="mb-8 text-2xl font-bold text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: mobileOpen ? 1 : 0, y: mobileOpen ? 0 : 20 }}

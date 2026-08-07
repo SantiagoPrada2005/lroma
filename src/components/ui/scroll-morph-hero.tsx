@@ -10,7 +10,7 @@ function useIsMobile() {
   useEffect(() => {
     setIsMobile(
       /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) ||
-        (navigator.maxTouchPoints > 1 && window.innerWidth < 1024),
+      (navigator.maxTouchPoints > 1 && window.innerWidth < 1024),
     );
   }, []);
   return isMobile;
@@ -90,7 +90,6 @@ function FlipCard({ src, target, label }: FlipCardProps) {
 }
 
 // --- Main Hero Component ---
-const TOTAL_IMAGES = 20;
 const MAX_SCROLL = 600;
 
 // L'Roma food photography — Unsplash
@@ -100,7 +99,7 @@ const IMAGES = [
   { src: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=300&q=80", label: "Pasta" },
   { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=80", label: "Burger" },
   { src: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=80", label: "Pizza" },
-  { src: "https://images.unsplash.com/photo-1625938145744-e380515399b7?w=300&q=80", label: "Picada" },
+  { src: "https://images.unsplash.com/photo-1541529086526-db283c563270?w=300&q=80", label: "Picada" },
   { src: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=300&q=80", label: "Lasaña" },
   { src: "https://images.unsplash.com/photo-1558030006-450675393462?w=300&q=80", label: "Cocina" },
   { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=80", label: "Plato" },
@@ -127,9 +126,6 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
   const isMobile = useIsMobile();
   const shouldReduceMotion = useReducedMotion();
   const totalImages = isMobile ? 12 : 20;
-  const springConfig = isMobile
-    ? { stiffness: 20, damping: 12 }
-    : { stiffness: 40, damping: 15 };
   const [introPhase, setIntroPhase] = useState<AnimationPhase>("scatter");
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -265,161 +261,161 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
 
   return (
     <MotionConfig reducedMotion="user">
-    <div
-      ref={containerRef}
-      className={cn("relative h-full w-full overflow-hidden bg-[#0A0A0A]", className)}
-    >
-      <div className="flex h-full w-full flex-col items-center justify-center perspective-1000">
-        {/* Intro Logo — L'Roma branding, fades out */}
-        <div className="pointer-events-none absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={
-              introPhase === "circle" && morphValue < 0.5
-                ? { opacity: 1 - morphValue * 2, y: 0, filter: "blur(0px)" }
-                : { opacity: 0, filter: "blur(10px)" }
-            }
-            transition={{ duration: 1 }}
-            className="flex items-center justify-center"
-          >
-            <picture>
-              <source srcSet={`${import.meta.env.BASE_URL}img/logo.avif`} type="image/avif" />
-              <source srcSet={`${import.meta.env.BASE_URL}img/logo.webp`} type="image/webp" />
-              <img
-                src={`${import.meta.env.BASE_URL}img/logo.webp`}
-                alt="L'Roma Pizza & Grill"
-                className="h-30 w-auto object-contain drop-shadow-2xl md:h-44"
-              />
-            </picture>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={
-              introPhase === "circle" && morphValue < 0.5
-                ? { opacity: 0.5 - morphValue }
-                : { opacity: 0 }
-            }
-            transition={{ duration: 1, delay: 0.4 }}
-            className="mt-6 text-[10px] font-bold tracking-[0.2em] text-white/40"
-          >
-            DESLIZÁ PARA EXPLORAR
-          </motion.p>
-        </div>
-
-        {/* Arc Content — fades in when arc forms */}
-        <motion.div
-          style={{ opacity: contentOpacity, y: contentY }}
-          className="pointer-events-none absolute top-[8%] z-10 flex flex-col items-center justify-center px-4 text-center"
-        >
-          <span className="mb-3 inline-block rounded-full border border-lroma-gold/30 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-lroma-gold">
-            Nuestra Cocina
-          </span>
-          <h2 className="font-heading text-3xl font-bold text-white md:text-5xl">
-            Descubrí L&apos;Roma
-          </h2>
-          <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/60 md:text-base">
-            Donde la pizza artesanal se encuentra con la parrilla.{" "}
-            <br className="hidden md:block" />
-            Una experiencia gastronómica que despierta los sentidos.
-          </p>
-          <a
-            href="/menu"
-            className="pointer-events-auto mt-6 inline-flex items-center gap-2 rounded-full bg-lroma-red px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-lroma-red/20 transition-all hover:bg-lroma-red/90"
-          >
-            Ver Menú
-          </a>
-        </motion.div>
-
-        {/* Image container */}
-        <div className="relative flex h-full w-full items-center justify-center">
-          {IMAGES.slice(0, totalImages).map((img, i) => {
-            let target = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 };
-
-            if (introPhase === "scatter") {
-              target = scatterPositions[i];
-            } else if (introPhase === "line") {
-              const spacing = 70;
-              const totalWidth = totalImages * spacing;
-              const lineX = i * spacing - totalWidth / 2;
-              target = { x: lineX, y: 0, rotation: 0, scale: 1, opacity: 1 };
-            } else {
-              const mobileBP = containerSize.width < 768;
-              const minDim = Math.min(containerSize.width, containerSize.height);
-              const circleRadius = Math.min(minDim * 0.35, 350);
-              const circleAngle = (i / totalImages) * 360;
-              const circleRad = (circleAngle * Math.PI) / 180;
-              const circlePos = {
-                x: Math.cos(circleRad) * circleRadius,
-                y: Math.sin(circleRad) * circleRadius,
-                rotation: circleAngle + 90,
-              };
-
-              const baseRadius = Math.min(containerSize.width, containerSize.height * 1.5);
-              const arcRadius = baseRadius * (mobileBP ? 1.4 : 1.1);
-              const arcApexY = containerSize.height * (mobileBP ? 0.35 : 0.25);
-              const arcCenterY = arcApexY + arcRadius;
-              const spreadAngle = mobileBP ? 100 : 130;
-              const startAngle = -90 - spreadAngle / 2;
-              const step = spreadAngle / (totalImages - 1);
-
-              const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1);
-              const maxRotation = spreadAngle * 0.8;
-              const boundedRotation = -scrollProgress * maxRotation;
-              const currentArcAngle = startAngle + i * step + boundedRotation;
-              const arcRad = (currentArcAngle * Math.PI) / 180;
-              const arcPos = {
-                x: Math.cos(arcRad) * arcRadius + parallaxValue,
-                y: Math.sin(arcRad) * arcRadius + arcCenterY,
-                rotation: currentArcAngle + 90,
-                scale: mobileBP ? 1.4 : 1.8,
-              };
-
-              target = {
-                x: lerp(circlePos.x, arcPos.x, morphValue),
-                y: lerp(circlePos.y, arcPos.y, morphValue),
-                rotation: lerp(circlePos.rotation, arcPos.rotation, morphValue),
-                scale: lerp(1, arcPos.scale, morphValue),
-                opacity: 1,
-              };
-            }
-
-            return (
-              <FlipCard
-                key={`${img.src}-${i}`}
-                src={img.src}
-                label={img.label}
-                index={i}
-                total={totalImages}
-                phase={introPhase}
-                target={target}
-              />
-            );
-          })}
-        </div>
-
-        {/* Scroll indicator — appears when arc is formed, fades at bottom */}
-        <motion.div
-          style={{ opacity: contentOpacity }}
-          className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-1"
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-              Seguí bajando
-            </span>
-            <svg
-              width="16" height="16" viewBox="0 0 16 16" fill="none"
-              className="text-white/30"
+      <div
+        ref={containerRef}
+        className={cn("relative h-full w-full overflow-hidden bg-[#0A0A0A]", className)}
+      >
+        <div className="flex h-full w-full flex-col items-center justify-center perspective-1000">
+          {/* Intro Logo — L'Roma branding, fades out */}
+          <div className="pointer-events-none absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              animate={
+                introPhase === "circle" && morphValue < 0.5
+                  ? { opacity: 1 - morphValue * 2, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, filter: "blur(10px)" }
+              }
+              transition={{ duration: 1 }}
+              className="flex items-center justify-center"
             >
-              <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+              <picture>
+                <source srcSet={`${import.meta.env.BASE_URL}/img/logo.avif`} type="image/avif" />
+                <source srcSet={`${import.meta.env.BASE_URL}/img/logo.webp`} type="image/webp" />
+                <img
+                  src={`${import.meta.env.BASE_URL}img/logo.webp`}
+                  alt="L'Roma Pizza & Grill"
+                  className="h-30 w-auto object-contain drop-shadow-2xl md:h-44"
+                />
+              </picture>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={
+                introPhase === "circle" && morphValue < 0.5
+                  ? { opacity: 0.5 - morphValue }
+                  : { opacity: 0 }
+              }
+              transition={{ duration: 1, delay: 0.4 }}
+              className="mt-6 text-[10px] font-bold tracking-[0.2em] text-white/40"
+            >
+              DESLIZÁ PARA EXPLORAR
+            </motion.p>
+          </div>
+
+          {/* Arc Content — fades in when arc forms */}
+          <motion.div
+            style={{ opacity: contentOpacity, y: contentY }}
+            className="pointer-events-none absolute top-[8%] z-10 flex flex-col items-center justify-center px-4 text-center"
+          >
+            <span className="mb-3 inline-block rounded-full border border-lroma-gold/30 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-lroma-gold">
+              Nuestra Cocina
+            </span>
+            <h2 className="font-heading text-3xl font-bold text-white md:text-5xl">
+              Descubrí L&apos;Roma
+            </h2>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/60 md:text-base">
+              Donde la pizza artesanal se encuentra con la parrilla.{" "}
+              <br className="hidden md:block" />
+              Una experiencia gastronómica que despierta los sentidos.
+            </p>
+            <a
+              href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/menu`}
+              className="pointer-events-auto mt-6 inline-flex items-center gap-2 rounded-full bg-lroma-red px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-lroma-red/20 transition-all hover:bg-lroma-red/90"
+            >
+              Ver Menú
+            </a>
           </motion.div>
-        </motion.div>
+
+          {/* Image container */}
+          <div className="relative flex h-full w-full items-center justify-center">
+            {IMAGES.slice(0, totalImages).map((img, i) => {
+              let target = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 };
+
+              if (introPhase === "scatter") {
+                target = scatterPositions[i];
+              } else if (introPhase === "line") {
+                const spacing = 70;
+                const totalWidth = totalImages * spacing;
+                const lineX = i * spacing - totalWidth / 2;
+                target = { x: lineX, y: 0, rotation: 0, scale: 1, opacity: 1 };
+              } else {
+                const mobileBP = containerSize.width < 768;
+                const minDim = Math.min(containerSize.width, containerSize.height);
+                const circleRadius = Math.min(minDim * 0.35, 350);
+                const circleAngle = (i / totalImages) * 360;
+                const circleRad = (circleAngle * Math.PI) / 180;
+                const circlePos = {
+                  x: Math.cos(circleRad) * circleRadius,
+                  y: Math.sin(circleRad) * circleRadius,
+                  rotation: circleAngle + 90,
+                };
+
+                const baseRadius = Math.min(containerSize.width, containerSize.height * 1.5);
+                const arcRadius = baseRadius * (mobileBP ? 1.4 : 1.1);
+                const arcApexY = containerSize.height * (mobileBP ? 0.35 : 0.25);
+                const arcCenterY = arcApexY + arcRadius;
+                const spreadAngle = mobileBP ? 100 : 130;
+                const startAngle = -90 - spreadAngle / 2;
+                const step = spreadAngle / (totalImages - 1);
+
+                const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1);
+                const maxRotation = spreadAngle * 0.8;
+                const boundedRotation = -scrollProgress * maxRotation;
+                const currentArcAngle = startAngle + i * step + boundedRotation;
+                const arcRad = (currentArcAngle * Math.PI) / 180;
+                const arcPos = {
+                  x: Math.cos(arcRad) * arcRadius + parallaxValue,
+                  y: Math.sin(arcRad) * arcRadius + arcCenterY,
+                  rotation: currentArcAngle + 90,
+                  scale: mobileBP ? 1.4 : 1.8,
+                };
+
+                target = {
+                  x: lerp(circlePos.x, arcPos.x, morphValue),
+                  y: lerp(circlePos.y, arcPos.y, morphValue),
+                  rotation: lerp(circlePos.rotation, arcPos.rotation, morphValue),
+                  scale: lerp(1, arcPos.scale, morphValue),
+                  opacity: 1,
+                };
+              }
+
+              return (
+                <FlipCard
+                  key={`${img.src}-${i}`}
+                  src={img.src}
+                  label={img.label}
+                  index={i}
+                  total={totalImages}
+                  phase={introPhase}
+                  target={target}
+                />
+              );
+            })}
+          </div>
+
+          {/* Scroll indicator — appears when arc is formed, fades at bottom */}
+          <motion.div
+            style={{ opacity: contentOpacity }}
+            className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-1"
+            >
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                Seguí bajando
+              </span>
+              <svg
+                width="16" height="16" viewBox="0 0 16 16" fill="none"
+                className="text-white/30"
+              >
+                <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </div>
     </MotionConfig>
   );
 }

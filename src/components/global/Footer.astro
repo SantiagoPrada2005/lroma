@@ -1,5 +1,6 @@
 ---
 // Footer — Logo, quick links, hours placeholder, social icons, glass divider
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <footer
   class="border-t border-white/10 px-6 py-16"
@@ -9,7 +10,7 @@
     <div class="grid gap-12 md:grid-cols-3">
       <!-- Logo + tagline -->
       <div class="flex flex-col gap-3">
-        <a href="/" class="text-2xl font-bold tracking-tight text-white">
+        <a href={base || "/"} class="text-2xl font-bold tracking-tight text-white">
           L'ROMA
         </a>
         <p class="text-sm leading-relaxed text-white/50">
@@ -27,25 +28,25 @@
         </h4>
         <nav class="flex flex-col gap-2" aria-label="Enlaces del footer">
           <a
-            href="/menu"
+            href={`${base}/menu`}
             class="text-sm text-white/50 transition-colors hover:text-white"
           >
             Menú
           </a>
           <a
-            href="/gallery"
+            href={`${base}/gallery`}
             class="text-sm text-white/50 transition-colors hover:text-white"
           >
             Galería
           </a>
           <a
-            href="/about"
+            href={`${base}/about`}
             class="text-sm text-white/50 transition-colors hover:text-white"
           >
             Nosotros
           </a>
           <a
-            href="/contact"
+            href={`${base}/contact`}
             class="text-sm text-white/50 transition-colors hover:text-white"
           >
             Contacto
