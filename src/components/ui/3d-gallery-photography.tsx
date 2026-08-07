@@ -239,17 +239,38 @@ function GalleryScene({
     [speed],
   );
 
+  // Touch handlers for mobile
+  const touchStartY = useRef(0);
+  const handleTouchStart = useCallback((event: TouchEvent) => {
+    touchStartY.current = event.touches[0].clientY;
+  }, []);
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      const deltaY = touchStartY.current - event.touches[0].clientY;
+      touchStartY.current = event.touches[0].clientY;
+      event.preventDefault();
+      setScrollVelocity((prev) => prev + deltaY * 0.05 * speed);
+      setAutoPlay(false);
+      lastInteraction.current = Date.now();
+    },
+    [speed],
+  );
+
   useEffect(() => {
     const canvas = document.querySelector("canvas");
     if (canvas) {
       canvas.addEventListener("wheel", handleWheel, { passive: false });
+      canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+      canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
       document.addEventListener("keydown", handleKeyDown);
       return () => {
         canvas.removeEventListener("wheel", handleWheel);
+        canvas.removeEventListener("touchstart", handleTouchStart);
+        canvas.removeEventListener("touchmove", handleTouchMove);
         document.removeEventListener("keydown", handleKeyDown);
       };
     }
-  }, [handleWheel, handleKeyDown]);
+  }, [handleWheel, handleKeyDown, handleTouchStart, handleTouchMove]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -450,14 +471,14 @@ export default function InfiniteGallery({
 
   if (!webglSupported) {
     return (
-      <div className={className} style={style}>
+    <div className={className} style={{ touchAction: "none", ...style }}>
         <FallbackGallery images={images} />
       </div>
     );
   }
 
   return (
-    <div className={className} style={style}>
+    <div className={className} style={{ touchAction: "none", ...style }}>
       <Canvas camera={{ position: [0, 0, 0], fov: 55 }} gl={{ antialias: true, alpha: true }}>
         <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
       </Canvas>
