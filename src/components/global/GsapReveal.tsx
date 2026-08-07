@@ -4,17 +4,24 @@ import { useRef, useEffect } from "react";
 import { gsap, initGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
+type Direction = "up" | "down" | "left" | "right";
+
+interface DirectionVector {
+  x?: number;
+  y?: number;
+}
+
 interface GsapRevealProps {
   children: React.ReactNode;
   className?: string;
-  direction?: "up" | "down" | "left" | "right";
+  direction?: Direction;
   delay?: number;
   duration?: number;
   distance?: number;
   blur?: boolean;
 }
 
-const directionMap = {
+const directionMap: Record<Direction, DirectionVector> = {
   up: { y: 60 },
   down: { y: -60 },
   left: { x: 60 },

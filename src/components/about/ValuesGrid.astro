@@ -2,10 +2,16 @@
 // ValuesGrid — 3 brand value cards
 // Calidad (Flame), Pasión (Heart), Comunidad (Users)
 // Subtle glass cards, mobile: stack, desktop: 3 columns
-import { Flame, Heart, Users } from "lucide-react";
+import { Flame, Heart, Users, type LucideIcon } from "lucide-react";
 import GsapReveal from "@/components/global/GsapReveal";
 
-const values = [
+interface ValueItem {
+  icon: LucideIcon;
+  label: string;
+  description: string;
+}
+
+const values: ValueItem[] = [
   {
     icon: Flame,
     label: "Calidad",
@@ -70,7 +76,7 @@ const values = [
           >
             <!-- Icon -->
             <div class="flex size-16 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold transition-colors duration-500 group-hover:bg-lroma-gold/20">
-              <value.icon class="size-7" aria-hidden="true" />
+              <value.icon className="size-7" aria-hidden="true" />
             </div>
 
             <h3 class="mt-6 font-heading text-xl font-bold text-white">

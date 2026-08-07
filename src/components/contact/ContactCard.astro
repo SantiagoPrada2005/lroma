@@ -8,7 +8,12 @@ import GsapReveal from "@/components/global/GsapReveal";
 const whatsappUrl =
   "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20informaci%C3%B3n";
 
-const hours = [
+interface ContactHour {
+  day: string;
+  time: string;
+}
+
+const hours: ContactHour[] = [
   { day: "Lunes – Jueves", time: "19:00 – 00:00" },
   { day: "Viernes – Sábado", time: "19:00 – 01:30" },
   { day: "Domingo", time: "19:00 – 00:00" },
@@ -53,7 +58,7 @@ const hours = [
           <!-- Phone — prominent, large -->
           <div class="flex items-center gap-4">
             <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
-              <Phone class="size-5" aria-hidden="true" />
+              <Phone className="size-5" aria-hidden="true" />
             </div>
             <div>
               <p class="text-sm text-white/40">Teléfono</p>
@@ -75,7 +80,7 @@ const hours = [
           <!-- Address + Map link -->
           <div class="flex items-center gap-4">
             <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
-              <MapPin class="size-5" aria-hidden="true" />
+              <MapPin className="size-5" aria-hidden="true" />
             </div>
             <div>
               <p class="text-sm text-white/40">Dirección</p>
@@ -104,7 +109,7 @@ const hours = [
           <!-- Hours table -->
           <div class="flex items-start gap-4">
             <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
-              <Clock class="size-5" aria-hidden="true" />
+              <Clock className="size-5" aria-hidden="true" />
             </div>
             <div class="w-full">
               <p class="text-sm text-white/40">Horarios</p>
@@ -138,7 +143,7 @@ const hours = [
               rel="noopener noreferrer"
               class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#E73134] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-lroma-red/25 transition-all duration-300 hover:bg-[#cc1f22] hover:shadow-xl hover:shadow-lroma-red/35 sm:w-auto"
             >
-              <MessageCircle class="size-4" />
+              <MessageCircle className="size-4" />
               Contactanos por WhatsApp
             </a>
 

@@ -5,7 +5,16 @@
 import { MessageCircle } from "lucide-react";
 import GsapReveal from "@/components/global/GsapReveal";
 
-const dishes = [
+interface DishItem {
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  whatsappMsg: string;
+  featured: boolean;
+}
+
+const dishes: DishItem[] = [
   {
     name: "Pizza Margherita",
     description:
@@ -51,7 +60,6 @@ const dishes = [
 ];
 
 // Separate featured dish from the rest
-const [featuredDish, ...regularDishes] = dishes;
 const featured = dishes.find((d) => d.featured) || dishes[0];
 const others = dishes.filter((d) => !d.featured);
 ---
@@ -132,7 +140,7 @@ const others = dishes.filter((d) => !d.featured);
                   class="inline-flex items-center gap-1.5 rounded-full border border-lroma-red/30 px-5 py-2 text-xs font-medium text-white transition-all duration-300 hover:border-lroma-red/50 hover:bg-lroma-red/15"
                   aria-label={`Pedir ${featured.name} por WhatsApp`}
                 >
-                  <MessageCircle class="size-3.5" />
+                  <MessageCircle className="size-3.5" />
                   Pedir
                 </a>
               </div>
@@ -182,7 +190,7 @@ const others = dishes.filter((d) => !d.featured);
                   class="inline-flex items-center gap-1 rounded-full border border-lroma-red/20 px-3.5 py-1.5 text-xs font-medium text-lroma-red transition-all duration-300 hover:border-lroma-red/40 hover:bg-lroma-red/10"
                   aria-label={`Pedir ${dish.name} por WhatsApp`}
                 >
-                  <MessageCircle class="size-3" />
+                  <MessageCircle className="size-3" />
                   Pedir
                 </a>
               </div>

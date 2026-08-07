@@ -84,38 +84,40 @@ export default function FloatingNav() {
           ============================================ */}
       <div className="fixed right-4 top-4 z-50 md:hidden">
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white hover:bg-black/60"
-              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {mobileOpen ? (
-                  <motion.div
-                    key="x"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="size-5" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="hamburger"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="size-5" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
-          </SheetTrigger>
+          <SheetTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white hover:bg-black/60"
+                aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {mobileOpen ? (
+                    <motion.div
+                      key="x"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <X className="size-5" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="hamburger"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="size-5" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </Button>
+            }
+          />
           <SheetContent
             side="left"
             className="w-full border-none bg-black/90 backdrop-blur-xl p-0"

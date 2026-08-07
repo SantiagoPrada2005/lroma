@@ -21,9 +21,5 @@ export default defineConfig({
       use: { ...devices["iPhone 13"] },
     },
   ],
-  webServer: {
-    command: "pnpm dev",
-    url: "http://localhost:4321",
-    reuseExistingServer: !process.env.CI,
-  },
+  // Dev server managed manually via `astro dev`
 });

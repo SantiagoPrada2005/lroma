@@ -1,0 +1,112 @@
+---
+// CircularGallerySection — 3D circular gallery with L'Roma menu items
+// Replaces GlassFeatureCards on the Home page
+import CircularGallery from "@/components/ui/circular-gallery";
+
+const menuItems = [
+  {
+    common: "Pizza Margherita",
+    binomial: "Salsa de tomate, mozzarella, albahaca fresca",
+    photo: {
+      url: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=900&auto=format&fit=crop&q=80",
+      text: "Pizza Margherita artesanal",
+      pos: "50% 40%",
+      by: "$12.000",
+    },
+  },
+  {
+    common: "Baby Beef",
+    binomial: "400g con guarnición a elección",
+    photo: {
+      url: "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&auto=format&fit=crop&q=80",
+      text: "Baby Beef jugoso a la parrilla",
+      pos: "50% 55%",
+      by: "$18.500",
+    },
+  },
+  {
+    common: "Carbonara",
+    binomial: "Panceta, huevo, parmesano, pimienta negra",
+    photo: {
+      url: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=900&auto=format&fit=crop&q=80",
+      text: "Pasta Carbonara cremosa",
+      pos: "50% 45%",
+      by: "$13.000",
+    },
+  },
+  {
+    common: "Hamburguesa L'Roma",
+    binomial: "Angus, panceta, cheddar, huevo, pan negro",
+    photo: {
+      url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&auto=format&fit=crop&q=80",
+      text: "Hamburguesa premium",
+      pos: "50% 50%",
+      by: "$14.000",
+    },
+  },
+  {
+    common: "Costillas BBQ",
+    binomial: "Cerdo laqueado, salsa barbacoa casera",
+    photo: {
+      url: "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&auto=format&fit=crop&q=80",
+      text: "Costillas BBQ glaseadas",
+      pos: "50% 50%",
+      by: "$22.000",
+    },
+  },
+  {
+    common: "Lasaña",
+    binomial: "Bolognesa, bechamel, parmesano gratinado",
+    photo: {
+      url: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=900&auto=format&fit=crop&q=80",
+      text: "Lasaña al horno",
+      pos: "50% 55%",
+      by: "$15.000",
+    },
+  },
+  {
+    common: "Picada L'Roma",
+    binomial: "Quesos, fiambres, aceitunas, pan casero",
+    photo: {
+      url: "https://images.unsplash.com/photo-1625938145744-e380515399b7?w=900&auto=format&fit=crop&q=80",
+      text: "Picada artesanal",
+      pos: "50% 50%",
+      by: "$25.000",
+    },
+  },
+  {
+    common: "Limonada Artesanal",
+    binomial: "Refrescante, con hierbas frescas",
+    photo: {
+      url: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=900&auto=format&fit=crop&q=80",
+      text: "Limonada natural",
+      pos: "50% 50%",
+      by: "$5.500",
+    },
+  },
+];
+---
+
+<section class="relative w-full bg-[#0A0A0A]" aria-label="Galería circular del menú">
+  <!-- Section heading -->
+  <div class="absolute left-0 right-0 top-16 z-10 text-center">
+    <span
+      class="inline-block rounded-full border border-lroma-gold/30 px-3 py-1 font-sans text-[10px] font-medium uppercase tracking-[0.2em] text-lroma-gold"
+    >
+      Nuestra Carta
+    </span>
+    <h2 class="mt-4 font-heading text-3xl text-white md:text-5xl">
+      Girá para descubrir
+    </h2>
+    <p class="mt-2 text-sm text-white/50">
+      Deslizá para explorar nuestros platos
+    </p>
+  </div>
+
+  <!-- Circular gallery — 500vh scroll container -->
+  <div style="height: 500vh">
+    <div class="sticky top-0 h-screen overflow-hidden">
+      <CircularGallery items={menuItems} client:load />
+    </div>
+  </div>
+</section>

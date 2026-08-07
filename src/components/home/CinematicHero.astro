@@ -46,7 +46,7 @@ const whatsappUrl =
       id="hero-image"
     >
       <img
-        src="/assets/images/hero/hero-main.png"
+        src="/public/img/hero.jpg"
         alt="Chef preparando pizza artesanal en horno de leña con iluminación dramática"
         class="h-full w-full object-cover"
         loading="eager"
@@ -147,7 +147,7 @@ const whatsappUrl =
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 rounded-full bg-[#E73134] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-lroma-red/25 transition-all duration-300 hover:bg-[#cc1f22] hover:shadow-xl hover:shadow-lroma-red/35"
         >
-          <MessageCircle class="size-4" data-icon="inline-start" />
+          <MessageCircle className="size-4" data-icon="inline-start" />
           Pedir por WhatsApp
         </a>
       </div>
@@ -162,7 +162,7 @@ const whatsappUrl =
     class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
   >
     <div class="animate-bounce motion-reduce:animate-none">
-      <ChevronDown class="size-5 text-white/25" aria-hidden="true" />
+      <ChevronDown className="size-5 text-white/25" aria-hidden="true" />
     </div>
   </div>
 </section>
@@ -180,8 +180,7 @@ const whatsappUrl =
     if (prefersReducedMotion) return;
 
     try {
-      const { gsap } =
-        await import("https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm");
+      const { gsap } = await import("gsap");
 
       gsap.set(
         [
