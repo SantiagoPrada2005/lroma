@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ interface FlipCardProps {
 const IMG_WIDTH = 60;
 const IMG_HEIGHT = 85;
 
-function FlipCard({ src, index, total, phase, target, label }: FlipCardProps) {
+function FlipCard({ src, target, label }: FlipCardProps) {
   return (
     <motion.div
       animate={{
