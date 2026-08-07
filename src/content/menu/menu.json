@@ -12,6 +12,6 @@
   { "id": "cerveza", "name": "Cerveza Artesanal", "description": "IPA local, 500ml", "price": 7000, "category": "drinks", "image": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&fm=webp&fit=crop&q=80", "featured": false },
   { "id": "hatsu-te", "name": "Hatsu Té", "description": "Té premium japonés, 400ml", "price": 6000, "category": "drinks", "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&fm=webp&fit=crop&q=80", "featured": false },
   { "id": "picada", "name": "Picada L'Roma", "description": "Selección de quesos, fiambres, aceitunas, pan casero", "price": 25000, "category": "picadas", "image": "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=800&fm=webp&fit=crop&q=80", "featured": false },
-  { "id": "alitas-bbq", "name": "Alitas BBQ", "description": "12 alitas con salsa barbacoa casera", "price": 16000, "category": "alitas", "image": "https://images.unsplash.com/photo-1608039829572-9b6d551a5cf8?w=800&fm=webp&fit=crop&q=80", "featured": false },
+  { "id": "alitas-bbq", "name": "Alitas BBQ", "description": "12 alitas con salsa barbacoa casera", "price": 16000, "category": "alitas", "image": "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&fm=webp&fit=crop&q=80", "featured": false },
   { "id": "pulled-pork", "name": "Pulled Pork Sandwich", "description": "Cerdo braseado, coleslaw, pan brioche", "price": 13500, "category": "sandwiches", "image": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800&fm=webp&fit=crop&q=80", "featured": false }
 ]
