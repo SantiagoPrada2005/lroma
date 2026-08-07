@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MenuHero from "@/components/menu/MenuHero.astro";
-import MenuContent from "@/components/menu/MenuContent";
+import CategoryNav from "@/components/menu/CategoryNav.astro";
+import MenuGrid from "@/components/menu/MenuGrid.astro";
+import MenuOrderPanel from "@/components/menu/MenuOrderPanel";
 import { getCollection } from "astro:content";
 
 const menuItems = await getCollection("menu");
@@ -16,6 +18,13 @@ const serializedItems = menuItems.map((item) => ({
 }));
 
 const featuredItem = serializedItems.find((i) => i.featured);
+
+// Lightweight order items — only what the interactive panel needs
+const orderItems = serializedItems.map((item) => ({
+  id: item.id,
+  name: item.name,
+  price: item.price,
+}));
 ---
 
 <BaseLayout
@@ -23,5 +32,7 @@ const featuredItem = serializedItems.find((i) => i.featured);
   description="Explorá nuestro menú — pizzas artesanales, parrilla, pastas y más. Elegí tus platos y pedí directo por WhatsApp."
 >
   <MenuHero featuredItem={featuredItem} />
-  <MenuContent items={serializedItems} client:visible />
+  <CategoryNav items={serializedItems} />
+  <MenuGrid items={serializedItems} />
+  <MenuOrderPanel items={orderItems} client:load />
 </BaseLayout>

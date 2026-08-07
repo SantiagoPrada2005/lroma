@@ -1,0 +1,146 @@
+---
+export interface MenuItemData {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  category: string;
+  image: string;
+  featured: boolean;
+}
+
+interface Props {
+  items: MenuItemData[];
+}
+
+const { items } = Astro.props;
+
+const ALL_CATEGORIES = [
+  { key: "all", label: "Todos" },
+  { key: "pizzas", label: "Pizzas" },
+  { key: "burgers", label: "Hamburguesas" },
+  { key: "hots", label: "Hot Dogs" },
+  { key: "sandwiches", label: "Sandwiches" },
+  { key: "pastas", label: "Pastas" },
+  { key: "grill", label: "Parrilla" },
+  { key: "picadas", label: "Picadas" },
+  { key: "alitas", label: "Alitas" },
+  { key: "drinks", label: "Bebidas" },
+] as const;
+
+const availableKeys = new Set(items.map((i) => i.category));
+const categories = ALL_CATEGORIES.filter(
+  (c) => c.key === "all" || availableKeys.has(c.key),
+);
+
+// Inline SVG icons to avoid any JS icon library dependency
+const ICONS: Record<string, string> = {
+  all: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M12 4v16"/><path d="M8 8h8"/><path d="M16 12h-8"/></svg>`,
+  pizzas: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M15 11h.01"/><path d="M11 15h.01"/><path d="M16 16h.01"/><path d="m2 16 20 6-6-20A20 20 0 0 0 2 16"/><path d="M5.71 17.11a17.04 17.04 0 0 1 11.4-11.4"/></svg>`,
+  burgers: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  hots: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  sandwiches: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777"/><path d="M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9"/><path d="m6.67 15 6.66 4.88"/><path d="m17.33 15-6.66 4.88"/></svg>`,
+  pastas: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  grill: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M17 8a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2h10V8z"/><path d="M17 10v4a5 5 0 0 1-10 0v-4"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="7" x2="17" y1="18" y2="18"/></svg>`,
+  picadas: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.21 0-4.21-.9-5.66-2.34L3.1 16.42"/></svg>`,
+  alitas: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1"/><path d="m13 12 4-4"/><path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2"/></svg>`,
+  drinks: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0"><path d="M17 6.1H3"/><path d="M21 12.1H3"/><path d="M15.1 18H3"/><path d="M10 2h2v2h-2z"/><path d="M12 4v2"/><path d="M18 8v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8"/></svg>`,
+};
+---
+
+<div
+  id="category-nav"
+  class="sticky z-30 transition-all duration-500"
+  style="top: 1.5rem;"
+>
+  <div class="mx-auto max-w-fit px-4">
+    <div class="rounded-full p-[1px] bg-gradient-to-r from-white/[0.06] via-white/[0.1] to-white/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <nav
+        role="tablist"
+        aria-label="Categorías del menú"
+        class="flex gap-0.5 overflow-x-auto rounded-full bg-black/60 backdrop-blur-2xl px-1.5 py-1.5 scrollbar-none"
+        id="category-list"
+      >
+        {categories.map((cat) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={cat.key === "all" ? "true" : "false"}
+            data-category={cat.key}
+            class="category-pill flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300 whitespace-nowrap text-white/45 hover:text-white/75 hover:bg-white/[0.04] aria-selected:bg-lroma-red aria-selected:text-white aria-selected:shadow-[0_0_20px_rgba(231,49,52,0.35)]"
+          >
+            <Fragment set:html={ICONS[cat.key] ?? ICONS.all} />
+            <span class="hidden sm:inline">{cat.label}</span>
+          </button>
+        ))}
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Category navigation — vanilla JS, no framework needed
+  const nav = document.getElementById("category-nav") as HTMLElement;
+  const pills = nav.querySelectorAll<HTMLButtonElement>(".category-pill");
+
+  function setActive(key: string) {
+    pills.forEach((p) => {
+      p.setAttribute("aria-selected", p.dataset.category === key ? "true" : "false");
+    });
+  }
+
+  // Click handler — scroll to category section
+  nav.addEventListener("click", (e) => {
+    const pill = (e.target as HTMLElement).closest<HTMLButtonElement>(".category-pill");
+    if (!pill) return;
+
+    const category = pill.dataset.category!;
+    setActive(category);
+
+    if (category === "all") {
+      document.querySelector<HTMLElement>("[data-menu-grid]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      const section = document.querySelector<HTMLElement>(`[data-category-section="${category}"]`);
+      section?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  // IntersectionObserver — highlight active category on scroll
+  // Deferred: category sections are rendered later in the DOM
+  function setupCategoryObserver() {
+    const sections = document.querySelectorAll<HTMLElement>("[data-category-section]");
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-category-section")!;
+            setActive(id);
+            break;
+          }
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  // Run after the full DOM is parsed (MenuGrid renders after CategoryNav)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupCategoryObserver);
+  } else {
+    setupCategoryObserver();
+  }
+
+  // Sticky offset — adapt to header height
+  window.addEventListener(
+    "scroll",
+    () => {
+      const scrolled = window.scrollY > 40;
+      nav.style.top = scrolled ? "5rem" : "1.5rem";
+    },
+    { passive: true },
+  );
+</script>
