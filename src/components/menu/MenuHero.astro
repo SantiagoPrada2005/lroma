@@ -1,0 +1,129 @@
+---
+export interface MenuItemData {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  category: string;
+  image: string;
+  featured: boolean;
+}
+
+interface Props {
+  featuredItem?: MenuItemData;
+}
+
+const { featuredItem } = Astro.props;
+
+function formatPrice(price: number): string {
+  return `$${price.toLocaleString("es-AR")}`;
+}
+---
+
+<div class="relative min-h-[100dvh] bg-lroma-black overflow-x-hidden">
+  <!-- Atmosphere layer — fixed, behind everything -->
+  <div class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+    <!-- Film grain -->
+    <div class="absolute inset-0 opacity-[0.025] mix-blend-overlay">
+      <svg width="100%" height="100%">
+        <filter id="grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.65"
+            numOctaves="3"
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
+    </div>
+
+    <!-- Ambient glows — large, soft, far apart -->
+    <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[60%] rounded-full bg-lroma-red/[0.04] blur-[150px]" />
+    <div class="absolute top-[40%] -left-[15%] w-[60%] h-[50%] rounded-full bg-lroma-gold/[0.03] blur-[140px]" />
+    <div class="absolute top-[75%] right-[5%] w-[40%] h-[35%] rounded-full bg-lroma-red/[0.025] blur-[120px]" />
+  </div>
+
+  <!-- Hero section -->
+  <section
+    data-hero
+    class="relative z-10 flex min-h-[92dvh] flex-col items-center justify-center px-6"
+  >
+    <!-- Parallax glow behind hero -->
+    <div
+      data-hero-glow
+      class="pointer-events-none absolute inset-0 flex items-center justify-center"
+    >
+      <div
+        class="w-[min(800px,90vw)] h-[min(600px,60vh)] rounded-full"
+        style="background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(231,49,52,0.12) 0%, rgba(212,168,83,0.04) 35%, transparent 70%)"
+      />
+    </div>
+
+    <!-- Content -->
+    <div data-hero-content class="relative text-center max-w-3xl">
+      <!-- Eyebrow -->
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-4 py-1.5 mb-8">
+        <span class="h-1.5 w-1.5 rounded-full bg-lroma-red animate-pulse" />
+        <span class="text-[11px] font-semibold tracking-[0.3em] text-lroma-gold uppercase">
+          Carta
+        </span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-heading text-[clamp(3rem,9vw,6.5rem)] leading-[0.9] text-white/95">
+        Nuestro
+        <br />
+        <span class="text-lroma-gold">Menú</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mx-auto mt-6 max-w-md text-[15px] leading-relaxed text-white/40 md:text-base">
+        Pizza artesanal, parrilla, pastas y más. Elegí tus platos y pedí
+        directo por WhatsApp.
+      </p>
+
+      <!-- Featured dish preview — floating glass card -->
+      {featuredItem && (
+        <div class="mt-12 inline-block">
+          <div class="rounded-3xl p-[1px] bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-transparent">
+            <div class="flex items-center gap-5 rounded-[calc(1.5rem-1px)] bg-black/40 backdrop-blur-xl px-6 py-4">
+              <img
+                src={featuredItem.image}
+                alt=""
+                class="h-14 w-14 rounded-2xl object-cover"
+                loading="eager"
+                decoding="async"
+              />
+              <div class="text-left">
+                <p class="text-[10px] font-semibold tracking-[0.2em] text-lroma-gold uppercase">
+                  Destacado
+                </p>
+                <p class="mt-0.5 font-heading text-base font-bold text-white/90">
+                  {featuredItem.name}
+                </p>
+              </div>
+              <span class="ml-2 font-heading text-lg font-semibold text-lroma-gold">
+                {formatPrice(featuredItem.price)}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      data-scroll-indicator
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+    >
+      <span class="text-[10px] tracking-[0.25em] text-white/25 uppercase">
+        Explorar
+      </span>
+      <svg class="size-4 text-white/20 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </div>
+  </section>
+</div>

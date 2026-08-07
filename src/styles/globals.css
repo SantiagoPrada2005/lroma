@@ -135,6 +135,15 @@
 }
 
 /* ============================================
+   Performance — skip off-screen rendering
+   ============================================ */
+
+.contain-content {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 350px;
+}
+
+/* ============================================
    Skip to content — hidden until focused
    ============================================ */
 

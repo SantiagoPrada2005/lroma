@@ -10,7 +10,7 @@ import {
   Sparkles,
   ArrowUpRight,
 } from "lucide-react";
-import { initGSAP, gsap, ScrollTrigger } from "@/lib/gsap";
+import { initGSAP, gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 initGSAP();

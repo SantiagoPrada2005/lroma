@@ -2,7 +2,7 @@
 // BaseLayout — Dark luxury shell for all pages
 // Semantic HTML landmarks, meta/OG tags, font preloading
 import { ClientRouter } from "astro:transitions";
-import FloatingNav from "@/components/global/FloatingNav";
+import FloatingNav from "@/components/global/FloatingNav.astro";
 import Footer from "@/components/global/Footer.astro";
 import "@/styles/globals.css";
 import "@/styles/fonts.css";
@@ -141,7 +141,7 @@ const absoluteImage = image.startsWith("http")
 
     <!-- Floating Navigation — React island, client:load -->
     <header id="site-header">
-      <FloatingNav client:load />
+      <FloatingNav />
     </header>
 
     <!-- Main content slot -->
