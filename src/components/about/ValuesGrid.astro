@@ -9,6 +9,7 @@ interface ValueItem {
   icon: LucideIcon;
   label: string;
   description: string;
+  descriptionShort: string;
 }
 
 const values: ValueItem[] = [
@@ -17,18 +18,24 @@ const values: ValueItem[] = [
     label: "Calidad",
     description:
       "Cada ingrediente es seleccionado a mano. Masa madre de 48 horas, productos frescos de estación y cortes premium. No aceptamos menos que la excelencia.",
+    descriptionShort:
+      "Ingredientes seleccionados, masa madre de 48h y cortes premium.",
   },
   {
     icon: Heart,
     label: "Pasión",
     description:
       "Cocinamos con el corazón. Cada pizza, cada corte a la parrilla, cada plato lleva la dedicación de un equipo que ama lo que hace.",
+    descriptionShort:
+      "Cocinamos con el corazón y máxima dedicación en cada plato.",
   },
   {
     icon: Users,
     label: "Comunidad",
     description:
       "L'Roma es de todos. Un espacio donde compartir, celebrar y crear recuerdos. Apoyamos productores locales y construimos lazos que van más allá de la mesa.",
+    descriptionShort:
+      "Un espacio para compartir, celebrar y apoyar a productores locales.",
   },
 ];
 ---
@@ -57,9 +64,9 @@ const values: ValueItem[] = [
       ></div>
     </div>
 
-    <!-- Values cards — 3 columns on desktop, stack on mobile -->
+    <!-- Values cards — 3 columns matching PC layout on mobile and desktop -->
     <div
-      class="grid gap-6 md:grid-cols-3 md:gap-8"
+      class="grid grid-cols-3 gap-2.5 sm:gap-6 md:gap-8"
       role="list"
       aria-label="Valores de L'Roma"
     >
@@ -72,18 +79,21 @@ const values: ValueItem[] = [
         >
           <article
             role="listitem"
-            class="group flex flex-col items-center rounded-3xl border border-white/5 bg-white/[0.02] px-8 py-12 backdrop-blur-sm transition-all duration-500 hover:border-white/10 hover:bg-white/[0.04]"
+            class="group flex h-full flex-col items-center rounded-2xl sm:rounded-3xl border border-white/5 bg-white/[0.02] p-3 sm:px-6 sm:py-8 md:px-8 md:py-12 backdrop-blur-sm transition-all duration-500 hover:border-white/10 hover:bg-white/[0.04]"
           >
             <!-- Icon -->
-            <div class="flex size-16 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold transition-colors duration-500 group-hover:bg-lroma-gold/20">
-              <value.icon className="size-7" aria-hidden="true" />
+            <div class="flex size-10 sm:size-14 md:size-16 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold transition-colors duration-500 group-hover:bg-lroma-gold/20">
+              <value.icon className="size-5 sm:size-6 md:size-7" aria-hidden="true" />
             </div>
 
-            <h3 class="mt-6 font-heading text-xl font-bold text-white">
+            <h3 class="mt-3 sm:mt-6 font-heading text-xs sm:text-lg md:text-xl font-bold text-white text-center">
               {value.label}
             </h3>
 
-            <p class="mt-3 text-center text-sm leading-relaxed text-white/50 md:text-base">
+            <p class="mt-1.5 text-center text-[10px] leading-snug text-white/50 sm:hidden">
+              {value.descriptionShort}
+            </p>
+            <p class="mt-3 hidden sm:block text-center text-sm leading-relaxed text-white/50 md:text-base">
               {value.description}
             </p>
           </article>

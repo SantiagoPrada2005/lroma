@@ -84,17 +84,17 @@ function AnimatedCounter({ stat }: { stat: Stat }) {
   }, [stat, isReducedMotion]);
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1 text-center">
       <span
         ref={ref}
-        className="font-heading text-[clamp(3rem,8vw,6.5rem)] font-black leading-none text-lroma-gold"
+        className="font-heading text-[clamp(1.5rem,5.5vw,6.5rem)] font-black leading-none tracking-tight text-lroma-gold"
         aria-label={`${stat.prefix ?? ""}${stat.target}${stat.suffix} ${stat.label}`}
       >
         {isReducedMotion
           ? `${stat.prefix ?? ""}${stat.target}${stat.suffix}`
           : `${stat.prefix ?? ""}${displayValue}${stat.suffix}`}
       </span>
-      <span className="text-xs font-semibold tracking-[0.25em] text-white/40 uppercase">
+      <span className="text-[10px] font-semibold tracking-[0.15em] sm:text-xs sm:tracking-[0.25em] text-white/40 uppercase">
         {stat.label}
       </span>
     </div>
@@ -104,17 +104,17 @@ function AnimatedCounter({ stat }: { stat: Stat }) {
 export default function StatsCounter() {
   return (
     <section
-      className="relative px-6 py-24 md:py-32"
+      className="relative px-4 py-12 sm:px-6 sm:py-24 md:py-32"
       aria-label="Estadísticas del restaurante"
     >
       {/* Thin gold line — editorial divider */}
-      <div className="mx-auto mb-16 h-px w-24 bg-gradient-to-r from-transparent via-lroma-gold/30 to-transparent md:mb-20 md:w-40" aria-hidden="true" />
+      <div className="mx-auto mb-8 h-px w-20 bg-gradient-to-r from-transparent via-lroma-gold/30 to-transparent sm:mb-16 md:mb-20 md:w-40" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-3xl">
         {/* Background gradient — subtle dark depth */}
-        <div className="absolute inset-0 rounded-[4rem] bg-gradient-to-b from-lroma-red/[0.02] via-transparent to-lroma-gold/[0.02]" aria-hidden="true" />
+        <div className="absolute inset-0 rounded-3xl sm:rounded-[4rem] bg-gradient-to-b from-lroma-red/[0.02] via-transparent to-lroma-gold/[0.02]" aria-hidden="true" />
 
-        <div className="relative flex flex-col items-center justify-center gap-14 md:flex-row md:gap-20">
+        <div className="relative grid grid-cols-3 items-center justify-items-center gap-2 sm:gap-8 md:flex md:flex-row md:justify-center md:gap-20">
           {stats.map((stat, i) => (
             <AnimatedCounter key={`${stat.label}-${i}`} stat={stat} />
           ))}
@@ -122,7 +122,7 @@ export default function StatsCounter() {
       </div>
 
       {/* Bottom thin gold line */}
-      <div className="mx-auto mt-16 h-px w-24 bg-gradient-to-r from-transparent via-lroma-gold/30 to-transparent md:mt-20 md:w-40" aria-hidden="true" />
+      <div className="mx-auto mt-8 h-px w-20 bg-gradient-to-r from-transparent via-lroma-gold/30 to-transparent sm:mt-16 md:mt-20 md:w-40" aria-hidden="true" />
     </section>
   );
 }

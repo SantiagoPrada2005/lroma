@@ -9,6 +9,7 @@ const storyBeats = [
     id: "origen",
     heading: "Cómo empezó todo",
     body: "L'Roma nació de un sueño compartido: crear un espacio donde la pizza artesanal italiana, la parrilla argentina y la cocina de autor convivan en un solo lugar. Cada plato cuenta una historia de pasión por los ingredientes frescos, las recetas de familia y el fuego que transforma lo simple en extraordinario.",
+    bodyShort: "Pizza artesanal italiana, parrilla argentina y cocina de autor unidas por la pasión del fuego real.",
     image:
       "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fm=webp&fit=crop&q=85",
     imageAlt: "Chef preparando pizza en horno de leña con iluminación dramática",
@@ -19,6 +20,7 @@ const storyBeats = [
     id: "cocina",
     heading: "Nuestra cocina",
     body: "En L'Roma la cocina no tiene fronteras. Fusionamos la tradición italiana con cortes argentinos a la parrilla y el espíritu audaz del BBQ americano. Masa madre de 48 horas de fermentación, carnes seleccionadas, vegetales de estación y el toque ahumado que solo el fuego real puede dar. No hacemos atajos — hacemos comida que se siente.",
+    bodyShort: "Masa madre de 48h, carnes seleccionadas y el toque ahumado que solo el fuego real puede dar.",
     image:
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&fm=webp&fit=crop&q=85",
     imageAlt: "Baby beef a la parrilla con chimichurri y papas rústicas",
@@ -29,6 +31,7 @@ const storyBeats = [
     id: "experiencia",
     heading: "La experiencia L'Roma",
     body: "Más que un restaurante, L'Roma es un punto de encuentro. Iluminación cálida, diseño industrial con acentos de bronce, música que acompaña sin invadir, y un equipo que te recibe como en casa. Acá cada cena se convierte en un recuerdo — ya sea una salida entre amigos, una cita especial o una celebración familiar.",
+    bodyShort: "Un espacio cálido e industrial donde cada cena se transforma en un recuerdo inolvidable.",
     image:
       "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&fm=webp&fit=crop&q=85",
     imageAlt: "Ambiente cálido del restaurante con mesas elegantemente preparadas",
@@ -67,20 +70,20 @@ const storyBeats = [
     <!-- ============================================
          Story beats — alternating image/text layout
          ============================================ -->
-    <div class="space-y-32 md:space-y-40">
+    <div class="space-y-12 sm:space-y-28 md:space-y-40">
       {storyBeats.map((beat) => (
         <article
           id={beat.id}
-          class="flex flex-col items-center gap-10 md:flex-row md:gap-16"
+          class="flex flex-row items-center gap-4 sm:gap-10 md:gap-16"
         >
           <!-- Image -->
           <GsapReveal
             direction="up"
             duration={0.9}
             blur={true}
-            className={`w-full md:w-1/2 ${beat.imageOrder}`}
+            className={`w-1/2 ${beat.imageOrder === "md:order-last" ? "order-last" : beat.imageOrder}`}
           >
-            <div class="relative overflow-hidden rounded-3xl border border-white/5">
+            <div class="relative overflow-hidden rounded-xl sm:rounded-3xl border border-white/5">
               <img
                 src={beat.image}
                 alt={beat.imageAlt}
@@ -101,16 +104,19 @@ const storyBeats = [
             delay={0.15}
             duration={0.8}
             blur={true}
-            className={`w-full md:w-1/2 ${beat.textOrder}`}
+            className={`w-1/2 ${beat.textOrder === "md:order-last" ? "order-last" : beat.textOrder}`}
           >
-            <h2 class="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] leading-tight text-white">
+            <h2 class="font-heading text-[clamp(1.15rem,3.5vw,2.75rem)] leading-tight text-white">
               {beat.heading}
             </h2>
             <div
-              class="mt-5 h-px w-12 bg-gradient-to-r from-lroma-gold/50 to-transparent"
+              class="mt-2 sm:mt-5 h-px w-8 sm:w-12 bg-gradient-to-r from-lroma-gold/50 to-transparent"
               aria-hidden="true"
             ></div>
-            <p class="mt-6 max-w-lg text-base leading-relaxed text-white/55 md:text-lg">
+            <p class="mt-2 text-xs leading-snug text-white/55 sm:hidden">
+              {beat.bodyShort}
+            </p>
+            <p class="mt-6 hidden sm:block max-w-lg text-base leading-relaxed text-white/55 md:text-lg">
               {beat.body}
             </p>
           </GsapReveal>
