@@ -115,8 +115,8 @@ export default function StatsCounter() {
         <div className="absolute inset-0 rounded-[4rem] bg-gradient-to-b from-lroma-red/[0.02] via-transparent to-lroma-gold/[0.02]" aria-hidden="true" />
 
         <div className="relative flex flex-col items-center justify-center gap-14 md:flex-row md:gap-20">
-          {stats.map((stat) => (
-            <AnimatedCounter key={stat.label} stat={stat} />
+          {stats.map((stat, i) => (
+            <AnimatedCounter key={`${stat.label}-${i}`} stat={stat} />
           ))}
         </div>
       </div>

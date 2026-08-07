@@ -349,7 +349,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
 
             return (
               <FlipCard
-                key={i}
+                key={`${img.src}-${i}`}
                 src={img.src}
                 label={img.label}
                 index={i}

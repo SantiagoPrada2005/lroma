@@ -3,6 +3,13 @@ import { useRef, useMemo, useCallback, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+// Suppress THREE.Clock deprecation (internal to @react-three/fiber, harmless)
+const origWarn = console.warn;
+console.warn = (...args: unknown[]) => {
+  if (typeof args[0] === "string" && args[0].includes("THREE.Clock")) return;
+  origWarn(...args);
+};
+
 type ImageItem = string | { src: string; alt?: string };
 
 interface FadeSettings {
@@ -385,7 +392,7 @@ function FallbackGallery({ images }: { images: ImageItem[] }) {
       <div className="grid max-h-96 grid-cols-2 gap-4 overflow-y-auto md:grid-cols-3">
         {normalizedImages.map((img, i) => (
           <img
-            key={i}
+            key={`${img.src || "img"}-${i}`}
             src={img.src || "/placeholder.svg"}
             alt={img.alt}
             className="h-32 w-full rounded object-cover"
