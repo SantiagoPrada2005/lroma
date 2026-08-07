@@ -17,7 +17,7 @@ const whatsappUrl =
        ============================================ -->
   <div class="absolute inset-0">
     <img
-      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&fm=webp&fit=crop&q=85"
+      src="/img/hero.jpg"
       alt="Interior de restaurante con iluminación cálida y ambiente sofisticado"
       class="h-full w-full object-cover"
       loading="lazy"
@@ -30,26 +30,33 @@ const whatsappUrl =
         const img = document.getElementById("cta-bg-image");
         if (!img) return;
         const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
+          "(prefers-reduced-motion: reduce)",
         ).matches;
         if (prefersReducedMotion) return;
 
         let ticking = false;
-        window.addEventListener("scroll", () => {
-          if (!ticking) {
-            requestAnimationFrame(() => {
-              const section = img.closest("section");
-              if (!section) { ticking = false; return; }
-              const rect = section.getBoundingClientRect();
-              const scrolled = -rect.top;
-              const maxScroll = rect.height;
-              const pct = Math.max(0, Math.min(1, scrolled / maxScroll));
-              img.style.transform = `translateY(${pct * 40}px) scale(1.05)`;
-              ticking = false;
-            });
-            ticking = true;
-          }
-        }, { passive: true });
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              requestAnimationFrame(() => {
+                const section = img.closest("section");
+                if (!section) {
+                  ticking = false;
+                  return;
+                }
+                const rect = section.getBoundingClientRect();
+                const scrolled = -rect.top;
+                const maxScroll = rect.height;
+                const pct = Math.max(0, Math.min(1, scrolled / maxScroll));
+                img.style.transform = `translateY(${pct * 40}px) scale(1.05)`;
+                ticking = false;
+              });
+              ticking = true;
+            }
+          },
+          { passive: true },
+        );
       })();
     </script>
   </div>
@@ -57,16 +64,14 @@ const whatsappUrl =
   <!-- ============================================
        Layer 2: Heavy dark overlay (75%)
        ============================================ -->
-  <div
-    class="absolute inset-0 bg-black/75"
-    aria-hidden="true"
-  ></div>
+  <div class="absolute inset-0 bg-black/75" aria-hidden="true"></div>
 
   <!-- Red accent glow — bottom center -->
   <div
     class="pointer-events-none absolute bottom-0 left-1/2 h-[400px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-lroma-red/10 blur-[120px]"
     aria-hidden="true"
-  ></div>
+  >
+  </div>
 
   <!-- ============================================
        Layer 3: Content — centered, cinematic

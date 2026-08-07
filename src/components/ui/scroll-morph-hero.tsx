@@ -79,7 +79,7 @@ function FlipCard({ src, index, total, phase, target, label }: FlipCardProps) {
 
 // --- Main Hero Component ---
 const TOTAL_IMAGES = 20;
-const MAX_SCROLL = 3000;
+const MAX_SCROLL = 600;
 
 // L'Roma food photography — Unsplash
 const IMAGES = [
@@ -180,7 +180,7 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
 
   const morphProgress = useTransform(virtualScroll, [0, 600], [0, 1]);
   const smoothMorph = useSpring(morphProgress, { stiffness: 40, damping: 20 });
-  const scrollRotate = useTransform(virtualScroll, [600, 3000], [0, 360]);
+  const scrollRotate = useTransform(virtualScroll, [200, 1000], [0, 360]);
   const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 40, damping: 20 });
 
   const mouseX = useMotionValue(0);

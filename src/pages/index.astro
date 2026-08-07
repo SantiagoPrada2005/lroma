@@ -1,19 +1,21 @@
 ---
-// Home page — L'Roma Pizza & Grill
-// CinematicHero → CircularGallery (3D menu) → StatsCounter → ReservationCTA
+// Home v2 — ScrollMorphHero variant
+// Interactive 3D morphing hero with food photography carousel
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import CinematicHero from "@/components/home/CinematicHero.astro";
-import CircularGallerySection from "@/components/home/CircularGallerySection.astro";
+import ScrollMorphHero from "@/components/ui/scroll-morph-hero";
 import StatsCounter from "@/components/home/StatsCounter";
 import ReservationCTA from "@/components/home/ReservationCTA.astro";
+import CircularGallerySection from "@/components/home/CircularGallerySection.astro";
 ---
 
 <BaseLayout
   title="Inicio"
-  description="L'Roma Pizza & Grill — Pizza artesanal, parrilla y cocina de autor. Más que una pizza, una experiencia."
+  description="L'Roma Pizza & Grill — Pizza artesanal, parrilla y cocina de autor. Descubrí una experiencia gastronómica única."
 >
-  <CinematicHero />
-  <CircularGallerySection />
+  <div class="h-screen">
+    <ScrollMorphHero client:load />
+  </div>
   <StatsCounter client:visible />
+  <CircularGallerySection />
   <ReservationCTA />
 </BaseLayout>
