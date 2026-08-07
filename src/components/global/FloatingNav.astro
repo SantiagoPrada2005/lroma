@@ -105,61 +105,66 @@ const whatsappUrl =
 </div>
 
 <script>
-  const nav = document.getElementById('desktop-nav');
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const overlay = document.getElementById('mobile-overlay');
-  const barsIcon = document.getElementById('menu-icon-bars');
-  const xIcon = document.getElementById('menu-icon-x');
+  function setupNav() {
+    const nav = document.getElementById('desktop-nav');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const overlay = document.getElementById('mobile-overlay');
+    const barsIcon = document.getElementById('menu-icon-bars');
+    const xIcon = document.getElementById('menu-icon-x');
 
-  let menuOpen = false;
+    let menuOpen = false;
 
-  function closeMenu() {
-    menuOpen = false;
-    overlay?.classList.add('opacity-0', 'pointer-events-none');
-    overlay?.classList.remove('opacity-100');
-    barsIcon?.classList.remove('hidden');
-    xIcon?.classList.add('hidden');
-    menuBtn?.setAttribute('aria-label', 'Abrir menú');
+    function closeMenu() {
+      menuOpen = false;
+      overlay?.classList.add('opacity-0', 'pointer-events-none');
+      overlay?.classList.remove('opacity-100');
+      barsIcon?.classList.remove('hidden');
+      xIcon?.classList.add('hidden');
+      menuBtn?.setAttribute('aria-label', 'Abrir menú');
+    }
+
+    function openMenu() {
+      menuOpen = true;
+      overlay?.classList.remove('opacity-0', 'pointer-events-none');
+      overlay?.classList.add('opacity-100');
+      barsIcon?.classList.add('hidden');
+      xIcon?.classList.remove('hidden');
+      menuBtn?.setAttribute('aria-label', 'Cerrar menú');
+    }
+
+    function updateScroll() {
+      if (!nav) return;
+      if (window.scrollY > 20) {
+        nav.classList.remove('bg-black/40');
+        nav.classList.add('bg-black/60', 'shadow-lg', 'shadow-black/20');
+      } else {
+        nav.classList.add('bg-black/40');
+        nav.classList.remove('bg-black/60', 'shadow-lg', 'shadow-black/20');
+      }
+    }
+
+    updateScroll();
+    window.removeEventListener('scroll', updateScroll);
+    window.addEventListener('scroll', updateScroll, { passive: true });
+
+    menuBtn?.addEventListener('click', () => {
+      if (menuOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    overlay?.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeMenu();
+      }
+    });
+
+    overlay?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => closeMenu());
+    });
   }
 
-  function openMenu() {
-    menuOpen = true;
-    overlay?.classList.remove('opacity-0', 'pointer-events-none');
-    overlay?.classList.add('opacity-100');
-    barsIcon?.classList.add('hidden');
-    xIcon?.classList.remove('hidden');
-    menuBtn?.setAttribute('aria-label', 'Cerrar menú');
-  }
-
-  function updateScroll() {
-    if (!nav) return;
-    if (window.scrollY > 20) {
-      nav.classList.remove('bg-black/40');
-      nav.classList.add('bg-black/60', 'shadow-lg', 'shadow-black/20');
-    } else {
-      nav.classList.add('bg-black/40');
-      nav.classList.remove('bg-black/60', 'shadow-lg', 'shadow-black/20');
-    }
-  }
-
-  updateScroll();
-  document.addEventListener('scroll', updateScroll, { passive: true });
-
-  menuBtn?.addEventListener('click', () => {
-    if (menuOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
-
-  overlay?.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      closeMenu();
-    }
-  });
-
-  overlay?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => closeMenu());
-  });
+  document.addEventListener('astro:page-load', setupNav);
 </script>
