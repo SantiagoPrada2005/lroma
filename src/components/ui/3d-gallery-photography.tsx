@@ -1,7 +1,6 @@
 import type React from "react";
-import { useRef, useMemo, useCallback, useState, useEffect, Suspense, Component } from "react";
+import { useRef, useMemo, useCallback, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 type ImageItem = string | { src: string; alt?: string };
@@ -173,7 +172,7 @@ function GalleryScene({
     [images],
   );
 
-  const textures = useTexture(normalizedImages.map((img) => img.src));
+  const textures = useSafeTextures(normalizedImages.map((img) => img.src));
   const materials = useMemo(
     () => Array.from({ length: visibleCount }, () => createClothMaterial()),
     [visibleCount],
@@ -376,22 +375,51 @@ function FallbackGallery({ images }: { images: ImageItem[] }) {
   );
 }
 
-// --- Error Boundary for Three.js ---
-class ThreeErrorBoundary extends Component<
-  { children: React.ReactNode; fallback?: React.ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  render() {
-    if (this.state.hasError) return this.props.fallback ?? null;
-    return this.props.children;
-  }
+// --- Safe texture loader (doesn't crash on 404) ---
+function useSafeTextures(urls: string[]) {
+  const [textures, setTextures] = useState<THREE.Texture[]>([]);
+
+  useEffect(() => {
+    const loader = new THREE.TextureLoader();
+    let cancelled = false;
+
+    const blackTex = (() => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 4;
+      canvas.height = 4;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.fillStyle = "#0A0A0A";
+        ctx.fillRect(0, 0, 4, 4);
+      }
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.needsUpdate = true;
+      return tex;
+    })();
+
+    Promise.all(
+      urls.map(
+        (url) =>
+          new Promise<THREE.Texture>((resolve) => {
+            loader.load(
+              url,
+              (tex) => resolve(tex),
+              undefined,
+              () => resolve(blackTex.clone()),
+            );
+          }),
+      ),
+    ).then((results) => {
+      if (!cancelled) setTextures(results);
+    });
+
+    return () => {
+      cancelled = true;
+      textures.forEach((t) => t.dispose());
+    };
+  }, [urls.length]);
+
+  return textures;
 }
 
 export default function InfiniteGallery({
@@ -431,11 +459,7 @@ export default function InfiniteGallery({
   return (
     <div className={className} style={style}>
       <Canvas camera={{ position: [0, 0, 0], fov: 55 }} gl={{ antialias: true, alpha: true }}>
-        <ThreeErrorBoundary>
-          <Suspense fallback={null}>
-            <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
-          </Suspense>
-        </ThreeErrorBoundary>
+        <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
       </Canvas>
     </div>
   );
