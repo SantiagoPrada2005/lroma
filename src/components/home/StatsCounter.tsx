@@ -104,7 +104,7 @@ function AnimatedCounter({ stat }: { stat: Stat }) {
 export default function StatsCounter() {
   return (
     <section
-      className="relative px-4 py-12 sm:px-6 sm:py-24 md:py-32"
+      className="relative px-4 py-36 sm:px-6 sm:py-72 md:py-96"
       aria-label="Estadísticas del restaurante"
     >
       {/* Thin gold line — editorial divider */}

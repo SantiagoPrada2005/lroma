@@ -87,7 +87,10 @@ const menuItems = [
 ];
 ---
 
-<section class="relative w-full bg-[#0A0A0A]" aria-label="Galería circular del menú">
+<section
+  class="relative w-full bg-[#0A0A0A]"
+  aria-label="Galería circular del menú"
+>
   <!-- Section heading -->
   <div class="absolute left-0 right-0 top-16 z-10 text-center">
     <span
@@ -106,7 +109,10 @@ const menuItems = [
   <!-- Circular gallery — 500vh scroll container -->
   <div style="height: 500vh">
     <div class="sticky top-0 h-screen overflow-hidden">
-      <CircularGallery items={menuItems} client:visible={{rootMargin: "400px"}} />
+      <CircularGallery
+        items={menuItems}
+        client:visible={{ rootMargin: "400px" }}
+      />
     </div>
   </div>
 </section>

@@ -1,15 +1,13 @@
 ---
 // Contact page — L'Roma Pizza & Grill
-// Double-Bezel glass card + map embed
+// Cinematic hero + bento contact grid + map
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ContactCard from "@/components/contact/ContactCard.astro";
-import MapEmbed from "@/components/contact/MapEmbed.astro";
+import ContactPage from "@/components/contact/ContactPage";
 ---
 
 <BaseLayout
   title="Contacto"
   description="L'Roma Pizza & Grill — Reservá tu mesa, pedí por WhatsApp o visitanos."
 >
-  <ContactCard />
-  <MapEmbed />
+  <ContactPage client:load />
 </BaseLayout>
