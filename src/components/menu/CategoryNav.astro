@@ -134,12 +134,19 @@ const ICONS: Record<string, string> = {
     setupCategoryObserver();
   }
 
-  // Sticky offset — adapt to header height
+  // Sticky offset — throttled via requestAnimationFrame
+  let ticking = false;
   window.addEventListener(
     "scroll",
     () => {
-      const scrolled = window.scrollY > 40;
-      nav.style.top = scrolled ? "5rem" : "1.5rem";
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          nav.style.top = scrolled ? "5rem" : "1.5rem";
+          ticking = false;
+        });
+        ticking = true;
+      }
     },
     { passive: true },
   );

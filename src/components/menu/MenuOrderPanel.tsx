@@ -26,6 +26,9 @@ function updateButtonDOM(itemId: string, quantity: number): void {
   const btn = document.querySelector<HTMLButtonElement>(`[data-add-btn="${itemId}"]`);
   if (!btn) return;
 
+  if (btn.dataset.activeQty === String(quantity)) return;
+  btn.dataset.activeQty = String(quantity);
+
   if (quantity === 0) {
     // Restore "Agregar" button
     btn.className =
@@ -84,7 +87,7 @@ export default function MenuOrderPanel({ items }: { items: MenuItemInfo[] }) {
     [selectedList],
   );
 
-  // Event delegation — catch clicks on the server-rendered grid
+  // Event delegation — single listener on document to catch clicks reliably
   useEffect(() => {
     function handleGridClick(e: MouseEvent) {
       const target = e.target as HTMLElement;
@@ -96,9 +99,7 @@ export default function MenuOrderPanel({ items }: { items: MenuItemInfo[] }) {
         const id = btnAdd.getAttribute("data-add-btn")!;
         const name = btnAdd.getAttribute("data-item-name") ?? "";
         const price = Number(btnAdd.getAttribute("data-item-price") ?? "0");
-        // Ensure item is in itemsById (preload the map)
         if (!itemsById.has(id)) {
-          // Dynamically add item info from data attributes
           itemsById.set(id, { id, name, price });
         }
         addItem(id);
@@ -117,14 +118,8 @@ export default function MenuOrderPanel({ items }: { items: MenuItemInfo[] }) {
       }
     }
 
-    // Attach to the grid container (server-rendered) and document for early clicks
-    const grid = document.querySelector<HTMLElement>("[data-menu-grid]");
-    if (grid) grid.addEventListener("click", handleGridClick);
-    // Also listen on body as a fallback while the grid might not be parsed yet
     document.addEventListener("click", handleGridClick);
-
     return () => {
-      if (grid) grid.removeEventListener("click", handleGridClick);
       document.removeEventListener("click", handleGridClick);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
