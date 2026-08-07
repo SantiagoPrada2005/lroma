@@ -16,14 +16,18 @@ const whatsappUrl =
        Layer 1: Dramatic food photography — full bleed
        ============================================ -->
   <div class="absolute inset-0">
-    <img
-      src="/img/hero.jpg"
-      alt="Interior de restaurante con iluminación cálida y ambiente sofisticado"
-      class="h-full w-full object-cover"
-      loading="lazy"
-      decoding="async"
-      id="cta-bg-image"
-    />
+    <picture>
+      <source srcset="/img/lroma-front.avif" type="image/avif" />
+      <source srcset="/img/lroma-front.webp" type="image/webp" />
+      <img
+        src="/img/lroma-front.jpg"
+        alt="Fachada de L'Roma Pizza & Grill"
+        class="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+        id="cta-bg-image"
+      />
+    </picture>
     <!-- === Parallax script — subtle background movement === -->
     <script>
       (() => {

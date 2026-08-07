@@ -16,7 +16,7 @@ interface Props {
 const {
   title,
   description = "L'Roma Pizza & Grill — Pizza artesanal, parrilla y cocina de autor en un ambiente cálido y sofisticado.",
-  image = "/assets/images/og-default.jpg",
+  image = "/img/lroma-front.webp",
 } = Astro.props;
 ---
 
@@ -25,6 +25,12 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/x-icon" href="/img/logo.ico" />
+    <link rel="shortcut icon" href="/img/logo.ico" />
+    <link rel="icon" type="image/webp" href="/img/logo.webp" />
+    <link rel="apple-touch-icon" href="/img/logo.webp" />
 
     <!-- Primary Meta -->
     <title>{title} | L'Roma Pizza & Grill</title>
@@ -37,9 +43,14 @@ const {
     <meta property="og:image" content={image} />
     <meta property="og:site_name" content="L'Roma Pizza & Grill" />
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | L'Roma Pizza & Grill`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
     <!-- Client-side navigation with View Transitions -->
     <ClientRouter />
-
   </head>
   <body>
     <!-- Skip to content — accessibility -->
