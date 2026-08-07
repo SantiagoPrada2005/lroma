@@ -1,6 +1,6 @@
 import type React from "react";
-import { useRef, useMemo, useCallback, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useRef, useMemo, useCallback, useState, useEffect, Suspense, Component } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -376,6 +376,24 @@ function FallbackGallery({ images }: { images: ImageItem[] }) {
   );
 }
 
+// --- Error Boundary for Three.js ---
+class ThreeErrorBoundary extends Component<
+  { children: React.ReactNode; fallback?: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) return this.props.fallback ?? null;
+    return this.props.children;
+  }
+}
+
 export default function InfiniteGallery({
   images,
   className = "h-96 w-full",
@@ -413,7 +431,11 @@ export default function InfiniteGallery({
   return (
     <div className={className} style={style}>
       <Canvas camera={{ position: [0, 0, 0], fov: 55 }} gl={{ antialias: true, alpha: true }}>
-        <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
+        <ThreeErrorBoundary>
+          <Suspense fallback={null}>
+            <GalleryScene images={images} fadeSettings={fadeSettings} blurSettings={blurSettings} />
+          </Suspense>
+        </ThreeErrorBoundary>
       </Canvas>
     </div>
   );
