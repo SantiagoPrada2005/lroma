@@ -1,4 +1,6 @@
 ---
+import { getUnsplashUrl } from "@/lib/images";
+
 export interface MenuItemData {
   id: string;
   name: string;
@@ -74,11 +76,14 @@ function formatPrice(price: number): string {
           <div class="rounded-3xl p-[1px] bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-transparent">
             <div class="flex items-center gap-5 rounded-[calc(1.5rem-1px)] bg-black/40 backdrop-blur-xl px-6 py-4">
               <img
-                src={featuredItem.image}
-                alt=""
+                src={getUnsplashUrl(featuredItem.image, 120)}
+                alt={featuredItem.name}
                 class="h-14 w-14 rounded-2xl object-cover"
                 loading="eager"
+                fetchpriority="high"
                 decoding="async"
+                width="56"
+                height="56"
               />
               <div class="text-left">
                 <p class="text-[10px] font-semibold tracking-[0.2em] text-lroma-gold uppercase">

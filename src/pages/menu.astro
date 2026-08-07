@@ -34,5 +34,5 @@ const orderItems = serializedItems.map((item) => ({
   <MenuHero featuredItem={featuredItem} />
   <CategoryNav items={serializedItems} />
   <MenuGrid items={serializedItems} />
-  <MenuOrderPanel items={orderItems} client:load />
+  <MenuOrderPanel items={orderItems} client:idle />
 </BaseLayout>
