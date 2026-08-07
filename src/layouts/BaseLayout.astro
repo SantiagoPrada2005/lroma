@@ -1,6 +1,7 @@
 ---
 // BaseLayout — Dark luxury shell for all pages
 // Semantic HTML landmarks, meta/OG tags, font preloading
+import { ClientRouter } from "astro:transitions";
 import FloatingNav from "@/components/global/FloatingNav";
 import Footer from "@/components/global/Footer.astro";
 import "@/styles/globals.css";
@@ -45,7 +46,8 @@ const {
       crossorigin
     />
 
-    <!-- Font preload for critical path -->
+    <!-- Client-side navigation with View Transitions -->
+    <ClientRouter />
 
   </head>
   <body>
