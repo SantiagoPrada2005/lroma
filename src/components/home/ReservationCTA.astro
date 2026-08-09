@@ -3,9 +3,9 @@
 // Full-width dramatic food photo, heavy dark overlay, parallax on scroll
 // Centered text: "Una experiencia te espera" in Playfair Display
 import { MessageCircle } from "lucide-react";
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
 
-const whatsappUrl =
-  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20reservar%20una%20mesa";
+const whatsappUrl = getWhatsAppUrl(CONTACT_INFO.whatsapp.reservationMessage);
 ---
 
 <section

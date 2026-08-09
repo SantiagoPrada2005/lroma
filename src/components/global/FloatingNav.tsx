@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -20,6 +21,8 @@ const NAV_LINKS = [
   { href: `${base}/about`, label: "Nosotros" },
   { href: `${base}/contact`, label: "Contacto" },
 ];
+
+const whatsappUrl = getWhatsAppUrl(CONTACT_INFO.whatsapp.orderMessage);
 
 export default function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -71,7 +74,7 @@ export default function FloatingNav() {
 
         {/* WhatsApp CTA */}
         <a
-          href="https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20hacer%20un%20pedido"
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 rounded-full bg-lroma-red px-4 py-1.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-lroma-red/90 hover:shadow-lg hover:shadow-lroma-red/20"
@@ -162,7 +165,7 @@ export default function FloatingNav() {
 
               {/* Mobile WhatsApp CTA */}
               <motion.a
-                href="https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20hacer%20un%20pedido"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-lroma-red px-8 py-3 text-base font-semibold text-white shadow-lg shadow-lroma-red/20 transition-all hover:bg-lroma-red/90"

@@ -4,9 +4,9 @@
 // Layer 4: Oversized serif typography overlapping → Layer 5: Floating glass card
 // GSAP entrance: scale + blur → sharp, staggered
 import { MessageCircle, ChevronDown } from "lucide-react";
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
 
-const whatsappUrl =
-  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20hacer%20un%20pedido";
+const whatsappUrl = getWhatsAppUrl(CONTACT_INFO.whatsapp.orderMessage);
 ---
 
 <section

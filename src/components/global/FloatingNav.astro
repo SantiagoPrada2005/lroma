@@ -1,4 +1,6 @@
 ---
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const navLinks = [
   { href: `${base}/menu`, label: "Menú" },
@@ -6,8 +8,7 @@ const navLinks = [
   { href: `${base}/about`, label: "Nosotros" },
   { href: `${base}/contact`, label: "Contacto" },
 ];
-const whatsappUrl =
-  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20hacer%20un%20pedido";
+const whatsappUrl = getWhatsAppUrl(CONTACT_INFO.whatsapp.orderMessage);
 ---
 
 <!-- Desktop — Floating Glass Pill -->

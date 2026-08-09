@@ -4,6 +4,7 @@
 import { ClientRouter } from "astro:transitions";
 import FloatingNav from "@/components/global/FloatingNav.astro";
 import Footer from "@/components/global/Footer.astro";
+import { CONTACT_INFO } from "@/config/contact";
 import "@/styles/globals.css";
 import "@/styles/fonts.css";
 
@@ -112,12 +113,12 @@ const swScope = `${import.meta.env.BASE_URL}/`;
         priceRange: "$$",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Av. Siempre Viva 742",
-          addressLocality: "Rosario",
-          addressRegion: "Santa Fe",
-          addressCountry: "AR",
+          streetAddress: CONTACT_INFO.address.street,
+          addressLocality: CONTACT_INFO.address.city,
+          addressRegion: CONTACT_INFO.address.state,
+          addressCountry: CONTACT_INFO.address.country,
         },
-        telephone: "+54 9 341 000-0000",
+        telephone: CONTACT_INFO.phone.raw,
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
@@ -139,8 +140,8 @@ const swScope = `${import.meta.env.BASE_URL}/`;
           },
         ],
         sameAs: [
-          "https://instagram.com/lromapizza",
-          "https://facebook.com/lromapizza",
+          CONTACT_INFO.social.instagram,
+          CONTACT_INFO.social.facebook,
         ],
       })}
     />

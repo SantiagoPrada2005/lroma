@@ -4,20 +4,9 @@
 // WhatsApp CTA, social media links
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import GsapReveal from "@/components/global/GsapReveal";
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
 
-const whatsappUrl =
-  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20informaci%C3%B3n";
-
-interface ContactHour {
-  day: string;
-  time: string;
-}
-
-const hours: ContactHour[] = [
-  { day: "Lunes – Jueves", time: "19:00 – 00:00" },
-  { day: "Viernes – Sábado", time: "19:00 – 01:30" },
-  { day: "Domingo", time: "19:00 – 00:00" },
-];
+const whatsappUrl = getWhatsAppUrl(CONTACT_INFO.whatsapp.orderMessage);
 ---
 
 <section class="px-6 py-24 md:py-36" aria-labelledby="contact-heading">
@@ -35,12 +24,13 @@ const hours: ContactHour[] = [
         id="contact-heading"
         class="mt-4 font-heading text-[clamp(2rem,5vw,3.5rem)] leading-tight text-white"
       >
-        Hablanos
+        Contactanos
       </h1>
       <div
         class="mx-auto mt-5 h-px w-16 bg-gradient-to-r from-transparent via-lroma-gold/40 to-transparent"
         aria-hidden="true"
-      ></div>
+      >
+      </div>
     </div>
 
     <!-- ============================================
@@ -57,16 +47,18 @@ const hours: ContactHour[] = [
         <div class="flex flex-col gap-8 p-8 md:p-12">
           <!-- Phone — prominent, large -->
           <div class="flex items-center gap-4">
-            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
+            <div
+              class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold"
+            >
               <Phone className="size-5" aria-hidden="true" />
             </div>
             <div>
               <p class="text-sm text-white/40">Teléfono</p>
               <a
-                href="tel:+549XXXXXXXXX"
+                href={CONTACT_INFO.phone.telHref}
                 class="font-heading text-2xl font-bold text-white transition-colors hover:text-lroma-gold md:text-3xl"
               >
-                +54 9 XXX XXX-XXXX
+                {CONTACT_INFO.phone.display}
               </a>
             </div>
           </div>
@@ -75,22 +67,25 @@ const hours: ContactHour[] = [
           <div
             class="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent"
             aria-hidden="true"
-          ></div>
+          >
+          </div>
 
           <!-- Address + Map link -->
           <div class="flex items-center gap-4">
-            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
+            <div
+              class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold"
+            >
               <MapPin className="size-5" aria-hidden="true" />
             </div>
             <div>
               <p class="text-sm text-white/40">Dirección</p>
               <p class="text-lg leading-relaxed text-white/80">
-                Av. Siempre Viva 742
+                {CONTACT_INFO.address.street}
                 <br />
-                <span class="text-white/50">Rosario, Santa Fe</span>
+                <span class="text-white/50">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state}</span>
               </p>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=L'Roma+Pizza+Grill+Rosario"
+                href={CONTACT_INFO.address.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="mt-1 inline-block text-sm text-lroma-gold transition-colors hover:text-lroma-gold/80"
@@ -104,25 +99,30 @@ const hours: ContactHour[] = [
           <div
             class="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent"
             aria-hidden="true"
-          ></div>
+          >
+          </div>
 
           <!-- Hours table -->
           <div class="flex items-start gap-4">
-            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold">
+            <div
+              class="flex size-12 shrink-0 items-center justify-center rounded-full bg-lroma-gold/10 text-lroma-gold"
+            >
               <Clock className="size-5" aria-hidden="true" />
             </div>
             <div class="w-full">
               <p class="text-sm text-white/40">Horarios</p>
               <table class="mt-2 w-full text-sm">
                 <tbody>
-                  {hours.map((row) => (
-                    <tr class="border-b border-white/5 last:border-b-0">
-                      <td class="py-2.5 pr-4 text-white/70">{row.day}</td>
-                      <td class="py-2.5 text-right font-medium text-white/90">
-                        {row.time}
-                      </td>
-                    </tr>
-                  ))}
+                  {
+                    CONTACT_INFO.hours.map((row) => (
+                      <tr class="border-b border-white/5 last:border-b-0">
+                        <td class="py-2.5 pr-4 text-white/70">{row.day}</td>
+                        <td class="py-2.5 text-right font-medium text-white/90">
+                          {row.time}
+                        </td>
+                      </tr>
+                    ))
+                  }
                 </tbody>
               </table>
             </div>
@@ -132,10 +132,13 @@ const hours: ContactHour[] = [
           <div
             class="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent"
             aria-hidden="true"
-          ></div>
+          >
+          </div>
 
           <!-- WhatsApp CTA + Social -->
-          <div class="flex flex-col items-center gap-5 sm:flex-row sm:justify-between">
+          <div
+            class="flex flex-col items-center gap-5 sm:flex-row sm:justify-between"
+          >
             <!-- WhatsApp red pill -->
             <a
               href={whatsappUrl}
@@ -150,7 +153,7 @@ const hours: ContactHour[] = [
             <!-- Social icons -->
             <div class="flex gap-4">
               <a
-                href="https://instagram.com/lromapizza"
+                href={CONTACT_INFO.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="rounded-full border border-white/10 p-2.5 text-white/50 transition-all hover:border-white/30 hover:text-white"
@@ -168,13 +171,14 @@ const hours: ContactHour[] = [
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  ></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
                 </svg>
               </a>
               <a
-                href="https://facebook.com/lromapizza"
+                href={CONTACT_INFO.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="rounded-full border border-white/10 p-2.5 text-white/50 transition-all hover:border-white/30 hover:text-white"
@@ -192,7 +196,9 @@ const hours: ContactHour[] = [
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  ></path>
                 </svg>
               </a>
             </div>

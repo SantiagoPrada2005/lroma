@@ -1,5 +1,7 @@
 ---
 // Footer — Logo, quick links, hours placeholder, social icons, glass divider
+import { CONTACT_INFO } from "@/config/contact";
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <footer
@@ -11,13 +13,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <!-- Logo + tagline -->
       <div class="flex flex-col gap-3">
         <a href={base || "/"} class="text-2xl font-bold tracking-tight text-white">
-          L'ROMA
+          {CONTACT_INFO.brand.name}
         </a>
         <p class="text-sm leading-relaxed text-white/50">
-          Pizza & Grill
+          {CONTACT_INFO.brand.tagline}
         </p>
         <p class="text-xs text-white/30">
-          Hecho con pasión en L'Roma
+          {CONTACT_INFO.brand.subtitle}
         </p>
       </div>
 
@@ -60,24 +62,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           Horarios
         </h4>
         <div class="space-y-2 text-sm text-white/50">
-          <p class="flex justify-between">
-            <span>Lunes – Jueves</span>
-            <span>19:00 – 00:00</span>
-          </p>
-          <p class="flex justify-between">
-            <span>Viernes – Sábado</span>
-            <span>19:00 – 01:30</span>
-          </p>
-          <p class="flex justify-between">
-            <span>Domingo</span>
-            <span>19:00 – 00:00</span>
-          </p>
+          {CONTACT_INFO.hours.map((item) => (
+            <p class="flex justify-between">
+              <span>{item.day}</span>
+              <span>{item.time}</span>
+            </p>
+          ))}
         </div>
 
         <!-- Social icons -->
         <div class="mt-6 flex gap-4">
           <a
-            href="https://instagram.com/lromapizza"
+            href={CONTACT_INFO.social.instagram}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/40 transition-colors hover:text-white"
@@ -101,7 +97,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             </svg>
           </a>
           <a
-            href="https://facebook.com/lromapizza"
+            href={CONTACT_INFO.social.facebook}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/40 transition-colors hover:text-white"
@@ -130,7 +126,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <div class="mt-12 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
     <p class="mt-8 text-center text-xs text-white/20">
-      &copy; {new Date().getFullYear()} L'Roma Pizza & Grill. Todos los derechos reservados.
+      &copy; {new Date().getFullYear()} {CONTACT_INFO.brand.name} {CONTACT_INFO.brand.tagline}. Todos los derechos reservados.
     </p>
   </div>
 </footer>

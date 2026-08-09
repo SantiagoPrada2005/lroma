@@ -4,6 +4,7 @@
 // Magazine editorial aesthetic — images bleed, typography overlay, subtle glass
 import { MessageCircle } from "lucide-react";
 import GsapReveal from "@/components/global/GsapReveal";
+import { getWhatsAppUrl } from "@/config/contact";
 
 interface DishItem {
   name: string;
@@ -22,7 +23,7 @@ const dishes: DishItem[] = [
     price: "$12.000",
     image:
       "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&fm=webp&fit=crop&q=80",
-    whatsappMsg: "Hola%20L'Roma!%20Quiero%20pedir%20una%20Pizza%20Margherita",
+    whatsappMsg: "Hola L'Roma! Quiero pedir una Pizza Margherita",
     featured: true,
   },
   {
@@ -32,7 +33,7 @@ const dishes: DishItem[] = [
     price: "$18.500",
     image:
       "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&fm=webp&fit=crop&q=80",
-    whatsappMsg: "Hola%20L'Roma!%20Quiero%20pedir%20un%20Baby%20Beef",
+    whatsappMsg: "Hola L'Roma! Quiero pedir un Baby Beef",
     featured: false,
   },
   {
@@ -42,8 +43,7 @@ const dishes: DishItem[] = [
     price: "$14.000",
     image:
       "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&fm=webp&fit=crop&q=80",
-    whatsappMsg:
-      "Hola%20L'Roma!%20Quiero%20pedir%20una%20Pasta%20Carbonara",
+    whatsappMsg: "Hola L'Roma! Quiero pedir una Pasta Carbonara",
     featured: false,
   },
   {
@@ -53,8 +53,7 @@ const dishes: DishItem[] = [
     price: "$13.500",
     image:
       "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&fm=webp&fit=crop&q=80",
-    whatsappMsg:
-      "Hola%20L'Roma!%20Quiero%20pedir%20una%20Hamburguesa%20L'Roma",
+    whatsappMsg: "Hola L'Roma! Quiero pedir una Hamburguesa L'Roma",
     featured: false,
   },
 ];
@@ -134,7 +133,7 @@ const others = dishes.filter((d) => !d.featured);
                   {featured.price}
                 </span>
                 <a
-                  href={`https://wa.me/549XXXXXXXXX?text=${featured.whatsappMsg}`}
+                  href={getWhatsAppUrl(featured.whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1.5 rounded-full border border-lroma-red/30 px-5 py-2 text-xs font-medium text-white transition-all duration-300 hover:border-lroma-red/50 hover:bg-lroma-red/15"
@@ -184,7 +183,7 @@ const others = dishes.filter((d) => !d.featured);
                   {dish.price}
                 </span>
                 <a
-                  href={`https://wa.me/549XXXXXXXXX?text=${dish.whatsappMsg}`}
+                  href={getWhatsAppUrl(dish.whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1 rounded-full border border-lroma-red/20 px-3.5 py-1.5 text-xs font-medium text-lroma-red transition-all duration-300 hover:border-lroma-red/40 hover:bg-lroma-red/10"

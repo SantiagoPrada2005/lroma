@@ -1,3 +1,5 @@
+import { CONTACT_INFO } from "@/config/contact";
+
 export interface OrderItem {
   name: string;
   quantity: number;
@@ -39,13 +41,14 @@ export function formatOrderMessage(items: OrderItem[]): string {
  * Opens WhatsApp with a pre-built message.
  *
  * @param message - The formatted message text
- * @param phone - Phone number in international format (without +)
- * @default phone "+549XXXXXXXXX"
+ * @param phone - Phone number in international format
+ * @default phone CONTACT_INFO.whatsapp.number
  */
 export function openWhatsApp(
   message: string,
-  phone: string = "+549XXXXXXXXX"
+  phone: string = CONTACT_INFO.whatsapp.number
 ): void {
+  const sanitizedPhone = phone.replace(/[^\d+]/g, "");
   const encoded = encodeURIComponent(message);
-  window.open(`https://wa.me/${phone}?text=${encoded}`, "_blank");
+  window.open(`https://wa.me/${sanitizedPhone}?text=${encoded}`, "_blank");
 }

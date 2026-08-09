@@ -12,22 +12,15 @@ import {
 } from "lucide-react";
 import { initGSAP, gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
+import { CONTACT_INFO, getWhatsAppUrl } from "@/config/contact";
 
 initGSAP();
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const WHATSAPP_URL =
-  "https://wa.me/549XXXXXXXXX?text=Hola%20L'Roma!%20Quiero%20informaci%C3%B3n";
-
-const HOURS = [
-  { day: "Lunes – Jueves", time: "19:00 – 00:00" },
-  { day: "Viernes – Sábado", time: "19:00 – 01:30" },
-  { day: "Domingo", time: "19:00 – 00:00" },
-] as const;
-
-const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=L'Roma+Pizza+Grill+Rosario";
+const WHATSAPP_URL = getWhatsAppUrl(CONTACT_INFO.whatsapp.defaultMessage);
+const HOURS = CONTACT_INFO.hours;
+const GOOGLE_MAPS_URL = CONTACT_INFO.address.mapsUrl;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -215,7 +208,7 @@ export default function ContactPage() {
               </span>
             </a>
             <a
-              href="tel:+549XXXXXXXXX"
+              href={CONTACT_INFO.phone.telHref}
               className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-5 py-3 text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/90"
             >
               <Phone className="size-4" />
@@ -301,7 +294,7 @@ export default function ContactPage() {
             {/* Phone — 1 col on mobile */}
             <BentoCard className="col-span-1 group/phone">
               <a
-                href="tel:+549XXXXXXXXX"
+                href={CONTACT_INFO.phone.telHref}
                 className="flex h-full flex-col justify-between p-4 sm:p-6"
               >
                 <span className="inline-flex size-9 items-center justify-center rounded-2xl bg-lroma-gold/10 ring-1 ring-lroma-gold/15 sm:size-11">
@@ -312,7 +305,7 @@ export default function ContactPage() {
                     Teléfono
                   </p>
                   <p className="mt-1 font-heading text-xs font-bold text-white/85 transition-colors duration-300 group-hover/phone:text-lroma-gold sm:text-xl md:text-2xl break-words">
-                    +54 9 XXX XXX-XXXX
+                    {CONTACT_INFO.phone.display}
                   </p>
                   <p className="mt-1.5 text-[10px] text-white/25 transition-colors duration-300 group-hover/phone:text-white/40 sm:text-xs">
                     Tocá para llamar →
@@ -337,9 +330,9 @@ export default function ContactPage() {
                     Dirección
                   </p>
                   <p className="mt-1 text-xs font-semibold text-white/80 leading-snug sm:text-base">
-                    Av. Siempre Viva 742
+                    {CONTACT_INFO.address.street}
                   </p>
-                  <p className="text-[11px] text-white/35 sm:text-sm">Rosario, Santa Fe</p>
+                  <p className="text-[11px] text-white/35 sm:text-sm">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state}</p>
                   <p className="mt-1.5 text-[10px] text-white/25 transition-colors duration-300 group-hover/map:text-white/40 sm:text-xs">
                     Ver en Maps →
                   </p>
@@ -393,7 +386,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex gap-2 md:mt-3">
                   <a
-                    href="https://instagram.com/lromapizza"
+                    href={CONTACT_INFO.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex size-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80 sm:size-10"
@@ -424,7 +417,7 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a
-                    href="https://facebook.com/lromapizza"
+                    href={CONTACT_INFO.social.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex size-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] text-white/40 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-white/80 sm:size-10"
@@ -517,10 +510,10 @@ export default function ContactPage() {
                   {/* Address overlay */}
                   <div className="absolute bottom-4 left-4 rounded-2xl border border-white/[0.06] bg-black/70 backdrop-blur-md px-5 py-3.5 md:bottom-6 md:left-6">
                     <p className="text-[10px] font-semibold tracking-[0.2em] text-lroma-gold/70 uppercase">
-                      Rosario, Santa Fe
+                      {CONTACT_INFO.address.city}, {CONTACT_INFO.address.state}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-white/85 md:text-base">
-                      Av. Siempre Viva 742
+                      {CONTACT_INFO.address.street}
                     </p>
                     <p className="mt-1.5 text-xs text-white/30 transition-colors duration-300 group-hover/map-link:text-white/50">
                       Abrir en Google Maps →
