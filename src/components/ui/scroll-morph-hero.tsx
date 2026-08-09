@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, useTransform, useSpring, useMotionValue, MotionConfig, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { SITE_IMAGES } from "@/config/images";
 
 // Mobile detection
 function useIsMobile() {
@@ -92,29 +93,8 @@ function FlipCard({ src, target, label }: FlipCardProps) {
 // --- Main Hero Component ---
 const MAX_SCROLL = 600;
 
-// L'Roma food photography — Unsplash
-const IMAGES = [
-  { src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&q=80", label: "Pizza" },
-  { src: "https://images.unsplash.com/photo-1544025162-d76694265947?w=300&q=80", label: "Grill" },
-  { src: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=300&q=80", label: "Pasta" },
-  { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=80", label: "Burger" },
-  { src: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&q=80", label: "Pizza" },
-  { src: "https://images.unsplash.com/photo-1541529086526-db283c563270?w=300&q=80", label: "Picada" },
-  { src: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=300&q=80", label: "Lasaña" },
-  { src: "https://images.unsplash.com/photo-1558030006-450675393462?w=300&q=80", label: "Cocina" },
-  { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=80", label: "Plato" },
-  { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=80", label: "Carne" },
-  { src: "https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=300&q=80", label: "Pasta" },
-  { src: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=300&q=80", label: "Comida" },
-  { src: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=300&q=80", label: "Resto" },
-  { src: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=300&q=80", label: "Chef" },
-  { src: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=300&q=80", label: "Grill" },
-  { src: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=300&q=80", label: "Ensalada" },
-  { src: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&q=80", label: "Waffle" },
-  { src: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=300&q=80", label: "Postre" },
-  { src: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=300&q=80", label: "Burger" },
-  { src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=300&q=80", label: "Cocina" },
-];
+// L'Roma food photography — centralized in SITE_IMAGES.heroMorph
+const IMAGES = SITE_IMAGES.heroMorph;
 
 const lerp = (start: number, end: number, t: number) => start * (1 - t) + end * t;
 

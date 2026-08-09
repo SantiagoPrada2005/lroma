@@ -43,22 +43,8 @@ routing.registerRoute(
     cacheName: "images-local",
     plugins: [
       new expiration.ExpirationPlugin({
-        maxEntries: 60,
+        maxEntries: 150,
         maxAgeSeconds: 30 * 24 * 60 * 60, // 30 días
-      }),
-    ],
-  }),
-);
-
-// 2. Unsplash CDN — StaleWhileRevalidate
-routing.registerRoute(
-  ({ url }) => url.hostname === "images.unsplash.com",
-  new strategies.StaleWhileRevalidate({
-    cacheName: "images-unsplash",
-    plugins: [
-      new expiration.ExpirationPlugin({
-        maxEntries: 120,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 días
       }),
     ],
   }),

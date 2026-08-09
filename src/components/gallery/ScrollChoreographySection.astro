@@ -3,6 +3,7 @@
 // 4-image diagonal scroll choreography (300vh, 3 phases)
 // using framer-motion useScroll / useTransform
 import ScrollChoreography from "@/components/ui/scroll-choreography";
+import { SITE_IMAGES } from "@/config/images";
 ---
 
 <section
@@ -29,15 +30,6 @@ import ScrollChoreography from "@/components/ui/scroll-choreography";
 
   <ScrollChoreography
     client:load
-    images={{
-      topLeft:
-        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fm=webp&fit=crop&q=85",
-      topRight:
-        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fm=webp&fit=crop&q=85",
-      bottomLeft:
-        "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1200&fm=webp&fit=crop&q=85",
-      bottomRight:
-        "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=1200&fm=webp&fit=crop&q=85",
-    }}
+    images={SITE_IMAGES.scrollChoreography}
   />
 </section>

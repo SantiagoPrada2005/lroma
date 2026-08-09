@@ -3,6 +3,7 @@
 // 3D infinite gallery with WebGL cloth-effect planes
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import InfiniteGallery from "@/components/ui/3d-gallery-photography";
+import { SITE_IMAGES } from "@/config/images";
 ---
 
 <BaseLayout
@@ -13,18 +14,7 @@ import InfiniteGallery from "@/components/ui/3d-gallery-photography";
     <!-- 3D Infinite Gallery -->
     <InfiniteGallery
       client:load
-      images={[
-        { src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80", alt: "Pizza artesanal" },
-        { src: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80", alt: "Grill premium" },
-        { src: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=600&auto=format&fit=crop&q=80", alt: "Pasta fresca" },
-        { src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80", alt: "Hamburguesa" },
-        { src: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&auto=format&fit=crop&q=80", alt: "Pizza napolitana" },
-        { src: "https://images.unsplash.com/photo-1558030006-450675393462?w=600&auto=format&fit=crop&q=80", alt: "Plato" },
-        { src: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=600&auto=format&fit=crop&q=80", alt: "Lasaña" },
-        { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80", alt: "Carne" },
-        { src: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&auto=format&fit=crop&q=80", alt: "Chef" },
-        { src: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&auto=format&fit=crop&q=80", alt: "Grill" },
-      ]}
+      images={SITE_IMAGES.infiniteGallery}
       speed={1}
       visibleCount={8}
       className="h-screen w-full"

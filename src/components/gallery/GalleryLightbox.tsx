@@ -3,54 +3,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { SITE_IMAGES } from "@/config/images";
 
-interface GalleryImage {
-  src: string;
-  alt: string;
-}
-
-const galleryImages: GalleryImage[] = [
-  {
-    src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Chef preparando pizza artesanal en horno de leña",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Pizza Margherita con albahaca fresca",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Baby beef jugoso con papas rústicas",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Hamburguesa gourmet con queso cheddar",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Ambiente cálido del restaurante",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Pasta carbonara con panceta",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Ingredientes frescos y coloridos",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Cóctel artesanal con decoración cítrica",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1574915371488-6fc8b03ff8a3?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Bife de chorizo a la parrilla",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=1600&fm=webp&fit=crop&q=90",
-    alt: "Picada con quesos y fiambres",
-  },
-];
+const galleryImages = SITE_IMAGES.gallery;
 
 type Direction = "next" | "prev";
 

@@ -3,17 +3,9 @@
 // Uses 21st.dev ScrollChoreography component with food photography
 // Section heading: "Nuestra Cocina" in Playfair Display, gold accent
 import ScrollChoreography from "@/components/ui/scroll-choreography";
+import { SITE_IMAGES } from "@/config/images";
 
-const foodImages = {
-  topLeft:
-    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&fm=webp&fit=crop&q=80",
-  topRight:
-    "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&fm=webp&fit=crop&q=80",
-  bottomLeft:
-    "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&fm=webp&fit=crop&q=80",
-  bottomRight:
-    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&fm=webp&fit=crop&q=80",
-};
+const foodImages = SITE_IMAGES.scrollChoreography;
 ---
 
 <section class="relative bg-lroma-black" aria-labelledby="kitchen-heading">
