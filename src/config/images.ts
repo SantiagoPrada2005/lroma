@@ -86,16 +86,16 @@ export const SITE_IMAGES = {
   // Brand & Shell Assets
   brand: {
     logo: {
-      ico: `/img/logo.ico`,
-      webp: `/img/logo.webp`,
-      avif: `/img/logo.avif`,
-      jpg: `/img/logo.jpg`,
+      ico: `${BASE_URL}/img/logo.ico`,
+      webp: `${BASE_URL}/img/logo.webp`,
+      avif: `${BASE_URL}/img/logo.avif`,
+      jpg: `${BASE_URL}/img/logo.jpg`,
       alt: "L'Roma Pizza & Grill Logo",
     },
     facade: {
-      webp: `/img/lroma-front.webp`,
-      avif: `/img/lroma-front.avif`,
-      jpg: `/img/lroma-front.jpg`,
+      webp: `${BASE_URL}/img/lroma-front.webp`,
+      avif: `${BASE_URL}/img/lroma-front.avif`,
+      jpg: `${BASE_URL}/img/lroma-front.jpg`,
       alt: "Fachada de L'Roma Pizza & Grill",
     },
   },
