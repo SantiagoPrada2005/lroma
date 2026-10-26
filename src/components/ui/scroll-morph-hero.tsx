@@ -259,10 +259,10 @@ export function ScrollMorphHero({ className }: ScrollMorphHeroProps) {
               className="flex items-center justify-center"
             >
               <picture>
-                <source srcSet={`${import.meta.env.BASE_URL}/img/logo.avif`} type="image/avif" />
-                <source srcSet={`${import.meta.env.BASE_URL}/img/logo.webp`} type="image/webp" />
+                <source srcSet={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/img/logo.avif`} type="image/avif" />
+                <source srcSet={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/img/logo.webp`} type="image/webp" />
                 <img
-                  src={`${import.meta.env.BASE_URL}img/logo.webp`}
+                  src={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/img/logo.webp`}
                   alt="L'Roma Pizza & Grill"
                   className="h-30 w-auto object-contain drop-shadow-2xl md:h-44"
                 />

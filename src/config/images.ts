@@ -95,7 +95,7 @@ export const SITE_IMAGES = {
     facade: {
       webp: `${BASE_URL}/img/lroma-front.webp`,
       avif: `${BASE_URL}/img/lroma-front.avif`,
-      jpg: `${BASE_URL}/img/lroma-front.jpg`,
+      jpg: `${BASE_URL}/img/lroma-front.webp`,
       alt: "Fachada de L'Roma Pizza & Grill",
     },
   },
